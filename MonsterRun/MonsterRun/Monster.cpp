@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Monster.h"
+#include "Player.h"
+
 using namespace std;
 
 
@@ -18,13 +20,55 @@ Monster::Monster(char n[]) {
 		name[i] = n[i];
 
 	}
-	xPosition = (int)n[0];
+	xPosition = (int)n[0] - 60;
 
 	if ((int)n[1] == 0 || (int)n[1] == -52) {
-			yPosition = (int)n[0];
+			yPosition = xPosition;
 	}
 	else
 	{
-		yPosition = (int)n[1];
+		yPosition = (int)n[1] - 60;
 	}
+}
+
+void Monster::Move(Player p) {
+	if (p.getXPosition() > xPosition) 
+	{
+		xPosition++;
+		if (p.getYPosition() > yPosition)
+		{
+			yPosition++;
+		}
+		else if (p.getYPosition() < yPosition)
+		{
+			yPosition--;
+		}
+		else
+		{
+			xPosition++;
+		}
+		
+	}
+	else if (p.getXPosition() < xPosition)
+	{
+		xPosition--;
+		if (p.getYPosition() > yPosition)
+		{
+			yPosition++;
+		}
+		else if (p.getYPosition() < yPosition)
+		{
+			yPosition--;
+		}
+		else
+		{
+			xPosition--;
+		}
+
+	}
+	else
+	{
+		yPosition += 2;
+	}
+	
 }
