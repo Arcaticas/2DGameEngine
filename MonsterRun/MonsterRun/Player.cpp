@@ -5,8 +5,8 @@ using namespace std;
 
 
 Player::Player() {
-	name[1] = 'j';
-	name[2] = 't';
+	name[0] = 'j';
+	name[1] = 't';
 
 	xPosition = 0;
 	yPosition = 0;

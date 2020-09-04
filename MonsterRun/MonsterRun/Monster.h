@@ -11,7 +11,7 @@ public:
 	int yPosition;
 
 	Monster();
-	Monster(char[]);
+	Monster(char* n);
 	void Move(Player p);
 
 	char* getName() { return name; }

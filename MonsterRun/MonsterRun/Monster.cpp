@@ -6,14 +6,14 @@ using namespace std;
 
 
 Monster::Monster() {
-	name[1] = 't';
-	name[2] = 'j';
+	name[0] = 't';
+	name[1] = 'j';
 
 	xPosition = 10;
 	yPosition = -10;
 }
 
-Monster::Monster(char n[]) {
+Monster::Monster(char* n) {
 
 	for (int i = 0; i < sizeof(n); i++)
 	{
