@@ -118,7 +118,7 @@ int main()
 					break;
 				}
 			}
-			cout << "You are at (" << you.getXPosition() << ',' << you.getYPosition() << "). Move now with WASD.\n";
+			cout << "You are at (" << you.getXPosition() << ',' << you.getYPosition() << "). Move now with WASD. Quit with ESC.\n";
 
 			input = _getch();
 
