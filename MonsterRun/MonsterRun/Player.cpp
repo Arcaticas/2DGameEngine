@@ -5,27 +5,22 @@ using namespace std;
 
 
 Player::Player() {
-	name[0] = 'j';
-	name[1] = 't';
+	name = new char[2]{ 't','j' };
 
 	xPosition = 0;
 	yPosition = 0;
 }
 
-Player::Player(char n[]) {
+Player::Player(char* n) {
 
-	for (int i = 0; i < sizeof(n); i++)
-	{
-		name[i] = n[i];
-
-	}
+	name = n;
 		
 	xPosition = 0;
 	yPosition = 0;
 
 }
 
-void Player::Move(char c) {
+/*void Player::Move(char c) {
 	cout << c;
 	bool acting = true;
 	while (acting) {
@@ -52,4 +47,4 @@ void Player::Move(char c) {
 		}
 	}
 	
-}
+}*/

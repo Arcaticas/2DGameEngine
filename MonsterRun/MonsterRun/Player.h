@@ -1,20 +1,21 @@
 #pragma once
 #ifndef PLAYER
 #define PLAYER
+#include "Actor.h"
 
-class Player {
+class Player : public Actor {
 
 public:
-	char name[20];
+	const char* name;
 	int xPosition;
 	int yPosition;
 
 	Player();
-	Player(char[]);
+	Player(char*);
 	void Move(char c);
 
 
-	char* getName() { return name; }
+	const char* getName() { return name; }
 	int getXPosition() { return xPosition; }
 	int getYPosition() { return yPosition; }
 };

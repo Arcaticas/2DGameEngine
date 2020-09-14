@@ -36,7 +36,7 @@ Point2D Point2D::operator+=(Point2D p)
 
 Point2D Point2D::operator-=(Point2D p)
 {
-	return Point2D(_x - p.getXPosition(), _y - p.getYPosition())
+	return Point2D(_x - p.getXPosition(), _y - p.getYPosition());
 }
 
 Point2D Point2D::operator*=(int i)

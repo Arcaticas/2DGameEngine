@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PLAYER
-#define PLAYER
+#ifndef POINT2D
+#define POINT2D
 
 
 class Point2D
@@ -20,6 +20,10 @@ public:
 	Point2D operator*=(int);
 	Point2D operator/=(int);
 	
+	void setXPosition(int i) { _x = i; }
+	void setYPosition(int i) { _y = i; }
+	void setXVector(int i) { xVector = i; }
+	void setYVector(int i) { yVector = i; }
 
 	int getXPosition() { return _x; }
 	int getYPosition() { return _y; }

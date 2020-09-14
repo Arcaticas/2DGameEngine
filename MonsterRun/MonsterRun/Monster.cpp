@@ -6,8 +6,7 @@ using namespace std;
 
 
 Monster::Monster() {
-	name[0] = 't';
-	name[1] = 'j';
+	name = new char[2]{ 't','j' };
 
 	xPosition = 10;
 	yPosition = -10;
@@ -15,11 +14,7 @@ Monster::Monster() {
 
 Monster::Monster(char* n) {
 
-	for (int i = 0; i < sizeof(n); i++)
-	{
-		name[i] = n[i];
-
-	}
+	name = n;
 	xPosition = (int)n[0] - 60;
 
 	if ((int)n[1] == 0 || (int)n[1] == -52) {
@@ -31,7 +26,7 @@ Monster::Monster(char* n) {
 	}
 }
 
-void Monster::Move(Player p) {
+void Monster::Move(Actor p) {
 	if (p.getXPosition() > xPosition) 
 	{
 		xPosition++;

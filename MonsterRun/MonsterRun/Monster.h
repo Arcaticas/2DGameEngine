@@ -1,20 +1,20 @@
 #pragma once
 #ifndef MONSTER
 #define MONSTER
-#include "Player.h"
+#include "Actor.h"
 
 class Monster {
 
 public:
-	char name[20];
+	const char* name;
 	int xPosition;
 	int yPosition;
 
 	Monster();
 	Monster(char* n);
-	void Move(Player p);
+	void Move(Actor p);
 
-	char* getName() { return name; }
+	const char* getName() { return name; }
 	int getXPosition() { return xPosition; }
 	int getYPosition() { return yPosition; }
 };
