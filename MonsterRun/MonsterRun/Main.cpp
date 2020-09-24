@@ -15,7 +15,7 @@ int main()
 	char Input[lenInput];
 
 	cout << "Welcome to monster run!\n";
-	cout << "Enter your player name:\n";
+	cout << "Enter your player name: (128 Character Limit.)\n";
 	
 
 	gets_s(Input, lenInput);
@@ -49,7 +49,7 @@ int main()
 	for(int i = 0; i < numbMonsters; i++) 
 	{
 		
-		cout << "What would you like to name monster " << i+1 << ":\n";
+		cout << "What would you like to name monster " << i+1 << ":  (128 Character Limit.)\n";
 		if (pMonsters != 0) {
 			pMonsters[i] = Monster(gets_s(Input, lenInput));
 		}
@@ -92,7 +92,7 @@ int main()
 				}
 
 				delete[] pMonsters;
-				cout << "Enter the new monsters name: \n";
+				cout << "Enter the new monsters name:  (128 Character Limit.)\n";
 				temp[numbMonsters - 1] = Monster(gets_s(Input, lenInput));
 
 				pMonsters = new (nothrow) Monster[numbMonsters];
