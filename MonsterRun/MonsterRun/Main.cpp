@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include "Monster.h"
 #include "Actor.h"
-
+#include <Point2DUnitTest.cpp>
 
 int main()
 {
+	Point2DUnitTest();
+
 	bool gameRunning = true;
 	Actor you;
 	const size_t lenInput = 128;
