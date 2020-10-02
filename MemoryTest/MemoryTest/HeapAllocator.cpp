@@ -100,6 +100,9 @@ void HeapAllocator::ReturnMemoryBlock( MemoryBlock* i_pFreeBlock)
 
 void* HeapAllocator::alloc(size_t size)
 {
+    if (size <= 0)
+        return nullptr;
+
     MemoryBlock* baseBlock = GetMemoryBlock();
 
     MemoryBlock* free = pFreeList;
@@ -127,7 +130,8 @@ void* HeapAllocator::alloc(size_t size)
         pOutstandingAllocations = baseBlock;
     }
 
-    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size);
+    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size + (size % 4));
     free->BlockSize -= size + (size % 4);
 
+    return baseBlock->pBaseAddress;
 }
