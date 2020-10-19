@@ -8,46 +8,9 @@
 #include <stdio.h>
 #endif // _DEBUG
 #include <iostream>
-char* MakeSentence(char** input, int size)
+const char* MakeSentence(const char* i_strings[])
 {
-	// convert i_strings to a complete char string sentence, with spaces between words and a . at the end and a '\0' terminator.
-	// allocate only the memory needed for the above.
-
-	char* r = (char*)malloc(sizeof(char*));
-	int length = 0;
-	if (input&&r) {
-		for (int i = 0; i < size; i++)
-		{
-			int count = 0;
-			if (input[i])
-			{		
-				while (*input[i] != '\0')
-				{
-					r[length] = *input[i];
-					length++;
-					count++;
-					input[i]++;
-				}
-				input[i] -= count;
-			}
-
-			if (i == size - 1)
-			{
-				r[length] = '.';
-				length++;
-				r[length] = '\0';
-				length++;
-			}
-			else
-			{
-				r[length] = ' ';
-				length++;
-
-			}
-		}
-	}
-
-	return r;
+	return nullptr;
 }
 
 int main(int i_argc, char** i_argl)
@@ -114,17 +77,38 @@ int main(int i_argc, char** i_argl)
 			free(temp);
 		}
 	}
-	/*
+	
+	char** temp2 = reinterpret_cast<char**>(malloc(sizeof(char**)));
+	char* temp3 = reinterpret_cast<char*>(malloc(sizeof(char*)));
+	temp2 = stringSentence;
+	std::cout << '\n';
+	std::cout << &temp3;
+	std::cout << '\n';
+	std::cout << &temp2;
+	std::cout << '\n';
 	for(int i = 0; i < size; i++)
 	{
-		while (*stringSentence[i]!='\0')
+		temp3 = temp2[i];
+		while (temp3[0]!='\0')
 		{
-			std::cout << *stringSentence[i];
-			stringSentence[i]++;
+			std::cout << temp3[0];
+			temp3++;
 		}
 		std::cout << '\n';
+		std::cout << &temp3;
+		std::cout << '\n';
+		std::cout << &temp2;
+		std::cout << '\n';
+
 	}
-	*/
+	std::cout << '\n';
+	std::cout << &temp3;
+	std::cout << '\n';
+	std::cout << &temp2;
+	std::cout << '\n';
+	free(temp3);
+	free(temp2);
+
 	// a sample set of words
 	const char* test[] = {
 		"This",
@@ -139,17 +123,14 @@ int main(int i_argc, char** i_argl)
 	// it should use malloc() to allocate the memory.
 	// it can use no other CRT or STL functions.
 	// print out the sentence
-	if(stringSentence!=nullptr)
-		printf(MakeSentence(stringSentence, size));
 
 	// free the memory it allocated.
-
 	for (int i = 0; i < size; i++)
 	{
 		free(stringSentence[i]);
 	}
-
 	free(stringSentence);
+
 
 	// in a Debug build check for memory leaks.
 #if defined(_DEBUG)
