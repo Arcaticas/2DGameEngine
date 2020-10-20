@@ -1,5 +1,4 @@
 #include <cassert>
-
 struct  MemoryBlock
 {
     void* pBaseAddress;
