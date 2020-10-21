@@ -78,35 +78,27 @@ int main(int i_argc, char** i_argl)
 		}
 	}
 	
-	char** temp2 = reinterpret_cast<char**>(malloc(sizeof(char**)));
+	char** temp2 = reinterpret_cast<char**>(malloc(sizeof(stringSentence)));
 	char* temp3 = reinterpret_cast<char*>(malloc(sizeof(char*)));
+
 	temp2 = stringSentence;
-	std::cout << '\n';
-	std::cout << &temp3;
-	std::cout << '\n';
-	std::cout << &temp2;
-	std::cout << '\n';
+
 	for(int i = 0; i < size; i++)
 	{
 		temp3 = temp2[i];
+		int count = 0;
 		while (temp3[0]!='\0')
 		{
+			count++;
 			std::cout << temp3[0];
 			temp3++;
 		}
-		std::cout << '\n';
-		std::cout << &temp3;
-		std::cout << '\n';
-		std::cout << &temp2;
-		std::cout << '\n';
+		temp3 -= count;
+		std::cout << "\n";
+		free(temp3);
+
 
 	}
-	std::cout << '\n';
-	std::cout << &temp3;
-	std::cout << '\n';
-	std::cout << &temp2;
-	std::cout << '\n';
-	free(temp3);
 	free(temp2);
 
 	// a sample set of words
