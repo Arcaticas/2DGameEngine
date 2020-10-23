@@ -8,7 +8,9 @@
 #include <stdio.h>
 #endif // _DEBUG
 #include <iostream>
-const char* MakeSentence(const char* i_strings[])
+
+
+const char* MakeSentence(char* i_strings[])
 {
 	return nullptr;
 }
@@ -26,7 +28,8 @@ int main(int i_argc, char** i_argl)
 	{
 		// ask the user for a word.
 		printf("Enter a word for the sentence, empty to end: ");
-		char* word = gets_s(Input, lenInput);
+		 const char* word = gets_s(Input, lenInput);
+
 		//check input is blank
 		if (Input[0] == '\0') 
 		{
@@ -37,37 +40,50 @@ int main(int i_argc, char** i_argl)
 		{
 			temp = stringSentence;
 		}
-		//increment the size of the sentence
+		//increment the number of words in a sentence
 		size++;
+		//count the length of that word
+		int count = 0;
+		//nullptr check
+		if (word != nullptr)
+		{
+			while (*word != '\0')
+			{
+				count++;
+				word++;
+			}
+			word -= count;
+		}
+		
 		//allocate memory for the bigger sentence pointer
 		stringSentence = (char**)malloc(size * sizeof(char*));
+		//nullptr check
 		if (stringSentence != nullptr)
 		{
 			for (int i = 0; i < size; i++)
 			{
-				//if the last element in the array add the newest word
+				//if the last element in the array, add the newest word
 				if (i == size - 1)
 				{
 					//allocate memory for the new word
-					stringSentence[size - 1] = (char*)malloc(sizeof(word));
-					int count = 0;
+					stringSentence[size - 1] = (char*)malloc(count * sizeof(*word));
+					//nullptr check
 					if (word != nullptr)
 					{
-						while (*word != '\0')
+						//assign the chars
+						for (int j = 0; j < count; j++)
 						{
-							if (stringSentence[i])
-							{
-								stringSentence[i][count] = *word;
-							}
-							count++;
-							word++;
+							stringSentence[i][j] = word[j];
 						}
 					}
+					//nullptr check
 					if(stringSentence[i])
 					{
+						//add null char to the end of the word
 						stringSentence[i][count] = '\0';
 					}
 				}
+				//copys over the older words to the new, larger sentence pointer.
 				else
 				{
 					stringSentence[i] = temp[i];
@@ -78,43 +94,22 @@ int main(int i_argc, char** i_argl)
 		}
 	}
 	
-	char** temp2 = reinterpret_cast<char**>(malloc(sizeof(stringSentence)));
-	char* temp3 = reinterpret_cast<char*>(malloc(sizeof(char*)));
 
-	temp2 = stringSentence;
-
+	/*Currently this is just a test to see if I am storing the user input strings correctly.
+	  So far, It does seem to work as it usually outputs the right strings, but I consistantly
+	  am getting heap corruption of some kind and dont understand where its coming from.*/
 	for(int i = 0; i < size; i++)
 	{
-		temp3 = temp2[i];
 		int count = 0;
-		while (temp3[0]!='\0')
+		while (stringSentence[i][count]!='\0')
 		{
+			std::cout << stringSentence[i][count];
 			count++;
-			std::cout << temp3[0];
-			temp3++;
 		}
-		temp3 -= count;
 		std::cout << "\n";
-		free(temp3);
 
 
 	}
-	free(temp2);
-
-	// a sample set of words
-	const char* test[] = {
-		"This",
-		"is",
-		"a",
-		"test",
-		NULL
-	};
-	// MakeSentence() is the function we need to implement.
-	// it should take in an array of words and create a sentence,
-	// allocating EXACTLY enough memory for the resultant string.
-	// it should use malloc() to allocate the memory.
-	// it can use no other CRT or STL functions.
-	// print out the sentence
 
 	// free the memory it allocated.
 	for (int i = 0; i < size; i++)
