@@ -47,12 +47,8 @@ int main(int i_argc, char** i_argl)
 		//nullptr check
 		if (word != nullptr)
 		{
-			while (*word != '\0')
-			{
-				count++;
-				word++;
-			}
-			word -= count;
+			while (word[count++] != '\0')
+				;
 		}
 		
 		//allocate memory for the bigger sentence pointer
@@ -76,12 +72,7 @@ int main(int i_argc, char** i_argl)
 							stringSentence[i][j] = word[j];
 						}
 					}
-					//nullptr check
-					if(stringSentence[i])
-					{
-						//add null char to the end of the word
-						stringSentence[i][count] = '\0';
-					}
+
 				}
 				//copys over the older words to the new, larger sentence pointer.
 				else
