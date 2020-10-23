@@ -3,6 +3,7 @@
 #include <cassert>
 #include <assert.h>
 
+
 int main()
 {
 	const size_t            sizeHeap = 1024 * 1024;
@@ -18,6 +19,10 @@ int main()
 	assert(pHeapMemory);
 
 	HeapAllocator* heapManager = HeapAllocator::Create(pHeapMemory,sizeHeap,numDescriptors);
+
+	void* ptr = heapManager->alloc(13);
+	void* ptr2 = heapManager->alloc(9);
+	void* ptr3 = heapManager->alloc(9001);
 
 	return 0;
 }

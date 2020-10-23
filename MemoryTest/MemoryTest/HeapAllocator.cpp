@@ -1,5 +1,6 @@
 #include <cassert>
 #include "HeapAllocator.h"
+#include <iostream>
 
 
 
@@ -93,7 +94,7 @@ void* HeapAllocator::alloc(size_t size)
     void* back = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size);
     //move back from the end of the memory block
     baseBlock->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(back)-size-(size%4));
-    baseBlock->BlockSize = size + (size % 4);
+    baseBlock->BlockSize = size + (4-(size % 4));
 
     if (pOutstandingAllocations == nullptr)
     {
