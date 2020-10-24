@@ -1,6 +1,10 @@
+#ifdef _DEBUG
+#endif
+
 #include <cassert>
 #include "HeapAllocator.h"
 #include <iostream>
+
 
 
 
@@ -74,6 +78,35 @@ void HeapAllocator::ReturnMemoryBlock( MemoryBlock* i_pFreeBlock)
     pFreeMemBlocks = i_pFreeBlock;
 }
 
+void HeapAllocator::Coalesce()
+{
+    MemoryBlock* current = pFreeList;
+    MemoryBlock* compare;
+    while (current != nullptr)
+    {
+        compare = pFreeList;
+        while (compare != nullptr)
+        {
+            if (reinterpret_cast<void*>(reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize) == compare->pBaseAddress)
+            {
+                current->BlockSize += compare->BlockSize;
+                current->pNextBlock = compare->pNextBlock;
+                ReturnMemoryBlock(compare);
+                break;
+
+            }
+
+            compare = compare->pNextBlock;
+            
+        }
+        
+
+
+        current = current->pNextBlock;
+    }
+    
+}
+
 void* HeapAllocator::alloc(size_t size)
 {
     if (size <= 0)
@@ -82,6 +115,9 @@ void* HeapAllocator::alloc(size_t size)
     MemoryBlock* baseBlock = GetMemoryBlock();
 
     MemoryBlock* free = pFreeList;
+#if defined(_DEBUG)
+    size += 4;
+#endif
     //find a memory block in free thats large enough with alignment
     while (free)
     {
@@ -90,12 +126,22 @@ void* HeapAllocator::alloc(size_t size)
         free = free->pNextBlock;
     }
     assert(free);
+
     //find the back of the memory block
     void* back = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size);
+    //4 byte alignment
+    size_t amend = 4 - (size % 4);
+    if (amend == 4)
+    {
+        amend = 0;
+    }
+#if defined(_DEBUG)
+    amend += 4;
+#endif
     //move back from the end of the memory block
-    baseBlock->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(back)-size-(size%4));
-    baseBlock->BlockSize = size + (4-(size % 4));
-
+    baseBlock->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(back)-size-amend);
+    baseBlock->BlockSize = size + amend;
+    //track the allocated memory
     if (pOutstandingAllocations == nullptr)
     {
         pOutstandingAllocations = baseBlock;
@@ -105,9 +151,94 @@ void* HeapAllocator::alloc(size_t size)
         baseBlock->pNextBlock = pOutstandingAllocations;
         pOutstandingAllocations = baseBlock;
     }
-
-    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size + (size % 4));
-    free->BlockSize -= size + (size % 4);
-
+    //shrink the size of free
+    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size + amend);
+    free->BlockSize -= size + amend;
+    //return the address
     return baseBlock->pBaseAddress;
+}
+
+void HeapAllocator::freeMem(void* ptr)
+{
+
+    MemoryBlock* out = pOutstandingAllocations;
+    if (out->pBaseAddress == ptr)
+    {
+        pOutstandingAllocations = out->pNextBlock;
+        out->pNextBlock = pFreeList;
+        pFreeList = out;
+    }
+    else
+    {
+        while (out)
+        {
+            if (out->pNextBlock->pBaseAddress == ptr)
+            {
+                break;
+            }
+            out = out->pNextBlock;
+        }
+
+        MemoryBlock* temp = out->pNextBlock;
+        out->pNextBlock = out->pNextBlock->pNextBlock;
+
+        temp->pNextBlock = pFreeList;
+        pFreeList = temp;
+    }
+    
+    Coalesce();
+}
+
+bool HeapAllocator::isAllocated(void* ptr)
+{
+    MemoryBlock* free = pFreeList;
+    while (free)
+    {
+        if (free->pBaseAddress == ptr)
+        {
+            return true;
+        }
+        if (free->pBaseAddress == free->pNextBlock->pNextBlock->pBaseAddress)
+        {
+            break;
+        }
+        free = free->pNextBlock;
+    }
+    return false;
+}
+
+void HeapAllocator::ShowOutstandingAllocations()
+{
+    MemoryBlock* out = pOutstandingAllocations;
+    while (out)
+    {
+        std::cout << out->pBaseAddress;
+        std::cout << '\n';
+        std::cout << out->BlockSize;
+        std::cout << '\n';
+
+        out = out->pNextBlock;
+        if (out->pBaseAddress == nullptr)
+        {
+            break;
+        }
+    }
+}
+
+void HeapAllocator::ShowFreeBlocks()
+{
+    MemoryBlock* free = pFreeList;
+    while (free)
+    {
+        std::cout << free->pBaseAddress;
+        std::cout << '\n';
+        std::cout << free->BlockSize;
+        std::cout << '\n';
+
+        free = free->pNextBlock;
+        if (free->pBaseAddress == free->pNextBlock->pNextBlock->pBaseAddress)
+        {
+            break;
+        }
+    }
 }

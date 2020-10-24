@@ -20,9 +20,15 @@ int main()
 
 	HeapAllocator* heapManager = HeapAllocator::Create(pHeapMemory,sizeHeap,numDescriptors);
 
-	void* ptr = heapManager->alloc(13);
+	void* ptr1 = heapManager->alloc(3);
 	void* ptr2 = heapManager->alloc(9);
-	void* ptr3 = heapManager->alloc(9001);
+	void* ptr3 = heapManager->alloc(16);
+	void* ptr4 = heapManager->alloc(20);
+	void* ptr5 = heapManager->alloc(24);
+
+	heapManager->freeMem(ptr3);
+
+
 
 	return 0;
 }
