@@ -160,6 +160,8 @@ void* HeapAllocator::alloc(size_t size)
 
 void HeapAllocator::freeMem(void* ptr)
 {
+    if (ptr == nullptr)
+        return;
 
     MemoryBlock* out = pOutstandingAllocations;
     if (out->pBaseAddress == ptr)
@@ -179,11 +181,15 @@ void HeapAllocator::freeMem(void* ptr)
             out = out->pNextBlock;
         }
 
-        MemoryBlock* temp = out->pNextBlock;
-        out->pNextBlock = out->pNextBlock->pNextBlock;
+        if (out)
+        {
+            MemoryBlock* temp = out->pNextBlock;
+            out->pNextBlock = out->pNextBlock->pNextBlock;
 
-        temp->pNextBlock = pFreeList;
-        pFreeList = temp;
+            temp->pNextBlock = pFreeList;
+            pFreeList = temp;
+        }
+        
     }
     
     Coalesce();
