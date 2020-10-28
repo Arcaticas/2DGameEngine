@@ -12,7 +12,71 @@
 
 const char* MakeSentence(char* i_strings[])
 {
-	return nullptr;
+
+	int word = 0;
+	int letter = 0;
+	int size = 0;
+	while (i_strings[word][0] != '\0')
+	{
+		letter = 0;
+		while (i_strings[word][letter] != '\0')
+		{
+			size++;
+			letter++;
+
+		}
+		size++;
+		word++;
+
+	}
+
+	char* sentence = reinterpret_cast<char*>(malloc(size * sizeof(char)));
+	const char* ret;
+	
+	bool first = true;
+	word = 0;
+	if (sentence)
+	{
+		while (i_strings[word][0] != '\0')
+		{
+			letter = 0;
+
+			while (i_strings[word][letter] != '\0')
+			{
+				if (first)
+				{
+					*sentence = toupper(i_strings[word][letter]);
+					first = false;
+				}
+				else
+				{
+					*sentence = i_strings[word][letter];
+
+				}
+				letter++;
+				sentence++;
+
+
+			}
+			*sentence = ' ';
+			sentence++;
+			word++;
+		}
+		sentence--;
+		*sentence = '.';
+		sentence++;
+	}
+
+	
+	sentence -= size;
+
+
+
+
+	ret = sentence;
+	free(sentence);
+
+	return ret;
 }
 
 int main(int i_argc, char** i_argl)
@@ -33,6 +97,29 @@ int main(int i_argc, char** i_argl)
 		//check input is blank
 		if (Input[0] == '\0') 
 		{
+			//add a null character word
+			temp = stringSentence;
+			size++;
+			stringSentence = reinterpret_cast<char**>(malloc(size * sizeof(char*)));
+
+			if (stringSentence)
+			{
+				for (int i = 0; i < size; i++)
+				{
+					if (i == size - 1)
+					{
+						stringSentence[size - 1] = reinterpret_cast<char*>(malloc(sizeof(char)));
+						if(stringSentence[size-1])
+							stringSentence[size - 1][0] = '\0';
+					}
+					else
+					{
+						stringSentence[i] = temp[i];
+					}
+				}
+			}
+			//break out of loop
+			free(temp);
 			break;
 		}
 		//if not the first time, copies strings to temp pointer
@@ -52,7 +139,7 @@ int main(int i_argc, char** i_argl)
 		}
 		
 		//allocate memory for the bigger sentence pointer
-		stringSentence = (char**)malloc(size * sizeof(char*));
+		stringSentence = reinterpret_cast<char**>(malloc(size * sizeof(char*)));
 		//nullptr check
 		if (stringSentence != nullptr)
 		{
@@ -62,14 +149,15 @@ int main(int i_argc, char** i_argl)
 				if (i == size - 1)
 				{
 					//allocate memory for the new word
-					stringSentence[size - 1] = (char*)malloc(count * sizeof(*word));
+					stringSentence[size - 1] = reinterpret_cast<char*>(malloc(count * sizeof(*word)));
 					//nullptr check
 					if (word != nullptr)
 					{
 						//assign the chars
 						for (int j = 0; j < count; j++)
 						{
-							stringSentence[i][j] = word[j];
+							if(stringSentence[i])
+								stringSentence[i][j] = word[j];
 						}
 					}
 
@@ -88,7 +176,7 @@ int main(int i_argc, char** i_argl)
 
 	/*Currently this is just a test to see if I am storing the user input strings correctly.
 	  So far, It does seem to work as it usually outputs the right strings, but I consistantly
-	  am getting heap corruption of some kind and dont understand where its coming from.*/
+	  am getting heap corruption of some kind and dont understand where its coming from.
 	for(int i = 0; i < size; i++)
 	{
 		int count = 0;
@@ -98,17 +186,21 @@ int main(int i_argc, char** i_argl)
 			count++;
 		}
 		std::cout << "\n";
+	}*/
+	
 
-
-	}
+	printf(MakeSentence(stringSentence));
 
 	// free the memory it allocated.
-	for (int i = 0; i < size; i++)
+	if (stringSentence)
 	{
-		free(stringSentence[i]);
+		for (int i = 0; i < size; i++)
+		{
+			free(stringSentence[i]);
+		}
+		free(stringSentence);
 	}
-	free(stringSentence);
-
+	
 
 	// in a Debug build check for memory leaks.
 #if defined(_DEBUG)
