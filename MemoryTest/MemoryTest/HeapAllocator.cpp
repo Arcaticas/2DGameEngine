@@ -99,9 +99,6 @@ void HeapAllocator::Coalesce()
             compare = compare->pNextBlock;
             
         }
-        
-
-
         current = current->pNextBlock;
     }
     
