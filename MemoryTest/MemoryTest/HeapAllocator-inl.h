@@ -51,8 +51,17 @@ inline void HeapAllocator::ShowOutstandingAllocations()
         std::cout << '\n';
 
         out = out->pNextBlock;
-        if (out->pBaseAddress == nullptr)
+        if (out->pBaseAddress == out->pNextBlock->pNextBlock->pBaseAddress)
         {
+            std::cout << out->pBaseAddress;
+            std::cout << '\n';
+            std::cout << out->BlockSize;
+            std::cout << '\n';
+
+            std::cout << out->pNextBlock->pBaseAddress;
+            std::cout << '\n';
+            std::cout << out->pNextBlock->BlockSize;
+            std::cout << '\n';
             break;
         }
     }
@@ -68,8 +77,12 @@ inline void HeapAllocator::ShowFreeBlocks()
         std::cout << free->BlockSize;
         std::cout << '\n';
 
-        free = free->pNextBlock;
-        if (free->pBaseAddress == free->pNextBlock->pNextBlock->pBaseAddress)
+        if (free->pNextBlock != nullptr)
+        {
+            free = free->pNextBlock;
+            
+        }
+        else
         {
             break;
         }

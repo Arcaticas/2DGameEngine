@@ -26,9 +26,14 @@ int main()
 	void* ptr4 = heapManager->alloc(20);
 	void* ptr5 = heapManager->alloc(24);
 
+
 	heapManager->freeMem(ptr3);
 
+	heapManager->ShowFreeBlocks();
 
+	heapManager->freeMem(ptr4);
+
+	heapManager->ShowFreeBlocks();
 
 	return 0;
 }

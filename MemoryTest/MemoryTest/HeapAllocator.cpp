@@ -63,15 +63,26 @@ void HeapAllocator::Coalesce()
 {
     MemoryBlock* current = pFreeList;
     MemoryBlock* compare;
+
     while (current != nullptr)
     {
         compare = pFreeList;
+
         while (compare != nullptr)
         {
             if (reinterpret_cast<void*>(reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize) == compare->pBaseAddress)
             {
+
+                std::cout << "Coalesce";
+
                 current->BlockSize += compare->BlockSize;
-                current->pNextBlock = compare->pNextBlock;
+
+
+                compare->pNextBlock = nullptr;
+                //current->pNextBlock = pFreeList;
+                //pFreeList = current;
+
+
                 ReturnMemoryBlock(compare);
                 break;
 
