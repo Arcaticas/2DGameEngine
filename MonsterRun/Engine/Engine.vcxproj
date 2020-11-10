@@ -148,12 +148,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Object2D.cpp" />
+    <ClCompile Include="AiControllerComp.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="NameComp.cpp" />
+    <ClCompile Include="PlayerControllerComp.cpp" />
     <ClCompile Include="Point2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="Object2D.h" />
+    <ClInclude Include="AiControllerComp.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="NameComp.h" />
+    <ClInclude Include="PlayerControllerComp.h" />
     <ClInclude Include="Point2D-inl.h" />
     <ClInclude Include="Point2D.h" />
   </ItemGroup>

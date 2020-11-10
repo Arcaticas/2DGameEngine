@@ -1,50 +1,30 @@
-#include <iostream>
-#include <conio.h>
 #include "Player.h"
-using namespace std;
 
 
 Player::Player() {
-	name = new char[2]{ 't','j' };
-
-	xPosition = 0;
-	yPosition = 0;
+	Attach(&Name());
+	Attach(&PlayerController());
+	position = Point2D();
 }
 
-Player::Player(char* n) {
+Player::Player(char* n, int x, int y) {
 
-	name = n;
-		
-	xPosition = 0;
-	yPosition = 0;
+	Attach(&Name(n));
+	Attach(&PlayerController());
+	position = Point2D(x, y);
 
 }
 
-/*void Player::Move(char c) {
-	cout << c;
-	bool acting = true;
-	while (acting) {
-		if (c == 'w') {
-			yPosition++;
-			acting = false;
-		}
-		else if (c == 'd') {
-			xPosition++;
-			acting = false;
-		}
-		else if (c == 's') {
-			yPosition--;
-			acting = false;
-		}
-		else if (c == 'a') {
-			xPosition--;
-			acting = false;
-		}
-		else {
-			cout << "Use WASD to move.\n";
-			Move(_getch());
-			break;
-		}
+void Player::UpdateObject() 
+{
+	const size_t count = components.size();
+	for (size_t i = 0; i < count; i++)
+	{
+		components[i]->PreUpdate(*this);
 	}
-	
-}*/
+
+	for (size_t i = 0; i < count; i++)
+	{
+			components[i]->Update(*this);
+	}
+}

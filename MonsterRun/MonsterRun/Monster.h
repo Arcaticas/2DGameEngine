@@ -1,22 +1,16 @@
 #pragma once
 #ifndef MONSTER
 #define MONSTER
-#include "Actor.h"
+#include "GameObject.h"
+#include "NameComp.h"
+#include "AiControllerComp.h"
 
-class Monster {
+class Monster : public GameObject{
 
 public:
-	const char* name;
-	int xPosition;
-	int yPosition;
+	Monster(char* n, GameObject* target, int x, int y);
 
-	Monster();
-	Monster(char* n);
-	void Move(Actor p);
-
-	const char* getName() { return name; }
-	int getXPosition() { return xPosition; }
-	int getYPosition() { return yPosition; }
+	void UpdateObject();
 };
 
 

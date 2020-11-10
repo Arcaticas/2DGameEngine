@@ -5,48 +5,13 @@
 
 Actor::Actor()
 {
-	
-	Object2D();
-
+	Attach(&Name());
 }
 
 
 Actor::Actor(char* n, int xPos, int yPos)
 {
-
-	Object2D(n, xPos, yPos);
-
+	Attach(&Name(n));
+	position = Point2D(xPos, yPos);
 }
 
-Actor::Actor(char* n, int xPos, int yPos, int xVec, int yVec)
-{
-	
-	Object2D(n, xPos, yPos, xVec, yVec);
-
-}
-
-void Actor::Move(char c)
-{
-	if (c != 'w' && c != 'a' && c != 's' && c != 'd')
-	{
-		std::cout << "Use WASD to move.\n";
-		Move(_getch());
-	}
-
-	if (c == 'w')
-	{
-		setYPosition(getYPosition() + 1);
-	}
-	if (c == 'a')
-	{
-		setXPosition(getXPosition() - 1);
-	}
-	if (c == 's')
-	{
-		setYPosition(getYPosition() - 1);
-	}
-	if (c == 'd')
-	{
-		setXPosition(getXPosition() + 1);
-	}
-}

@@ -1,23 +1,18 @@
 #pragma once
 #ifndef PLAYER
 #define PLAYER
-#include "Actor.h"
+#include "GameObject.h"
+#include "NameComp.h"
+#include "PlayerControllerComp.h"
 
-class Player : public Actor {
+class Player : public GameObject {
 
 public:
-	const char* name;
-	int xPosition;
-	int yPosition;
 
 	Player();
-	Player(char*);
-	void Move(char c);
+	Player(char* n, int x, int y);
 
-
-	const char* getName() { return name; }
-	int getXPosition() { return xPosition; }
-	int getYPosition() { return yPosition; }
+	void UpdateObject();
 };
 
 #endif // !PLAYER
