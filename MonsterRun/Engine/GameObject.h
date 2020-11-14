@@ -2,6 +2,7 @@
 #include <vector>
 #include "Point2D.h"
 
+class GameObject;
 
 class IObjectComponents {
 public:

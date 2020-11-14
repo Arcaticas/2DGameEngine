@@ -3,6 +3,10 @@
 
 using namespace std;
 
+Monster::Monster()
+{
+
+}
 
 Monster::Monster(char* n, GameObject* player, int x, int y)
 {

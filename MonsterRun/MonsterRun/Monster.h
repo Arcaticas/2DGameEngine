@@ -8,7 +8,9 @@
 class Monster : public GameObject{
 
 public:
+	Monster();
 	Monster(char* n, GameObject* target, int x, int y);
+
 
 	void UpdateObject();
 };

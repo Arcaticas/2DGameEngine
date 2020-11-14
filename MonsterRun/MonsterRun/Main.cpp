@@ -2,13 +2,12 @@
 #include <conio.h>
 #include <stdio.h>
 #include "Monster.h"
-#include "Actor.h"
-
+#include "Player.h"
 
 int main()
 {
 	bool gameRunning = true;
-	Actor you;
+	Player you;
 	const size_t lenInput = 128;
 	char Input[lenInput];
 
@@ -17,9 +16,8 @@ int main()
 	
 	
 	gets_s(Input, lenInput);
-	you = Actor(Input,0,0);
-
-	int numbMonsters = 0;
+	you = Player(Input, 10, 10);
+	size_t numbMonsters = 0;
 	std::cout << "How many monsters would you like to run from?\n";
 	while (numbMonsters <= 0) {
 		gets_s(Input, lenInput);
@@ -49,13 +47,12 @@ int main()
 		
 		std::cout << "What would you like to name monster " << i+1 << ":\n";
 		if (pMonsters != 0) {
-			pMonsters[i] = Monster(gets_s(Input, lenInput));
+			pMonsters[i].Attach(&Name(gets_s(Input, lenInput)));
 		}
 			
 	}
 
 	
-	char input;
 	int turnCount = 0;
 
 	while (gameRunning) {
@@ -91,7 +88,8 @@ int main()
 
 				delete[] pMonsters;
 				std::cout << "Enter the new monsters name: \n";
-				temp[numbMonsters - 1] = Monster(gets_s(Input, lenInput));
+				temp[numbMonsters - 1].Attach(&Name(gets_s(Input, lenInput)));
+				temp[numbMonsters - 1].Attach(&AiController(reinterpret_cast<GameObject>(you)));
 
 				pMonsters = new (std::nothrow) Monster[numbMonsters];
 
@@ -108,15 +106,15 @@ int main()
 		if (pMonsters != 0) {
 			for (int i = 0; i < numbMonsters; i++)
 			{
-				std::cout << pMonsters[i].getName() << " is at (" << pMonsters[i].getXPosition() << ',' << pMonsters[i].getYPosition() << ").\n";
-				if (pMonsters[i].getXPosition() == you.getXPosition() && pMonsters[i].getYPosition() == you.getYPosition())
+				std::cout << pMonsters[i].getName() << " is at (" << pMonsters[i].position.getXPosition() << ',' << pMonsters[i].position.getYPosition() << ").\n";
+				if (pMonsters[i].position.getXPosition() == you.position.getXPosition() && pMonsters[i].position.getYPosition() == you.position.getYPosition())
 				{
 					std::cout << "A monster got you! Hit any key to quit.";
 					input = _getch();
 					break;
 				}
 			}
-			std::cout << "You are at (" << you.getXPosition() << ',' << you.getYPosition() << "). \n";
+			std::cout << "You are at (" << you.position.getXPosition() << ',' << you.position.getYPosition() << "). \n";
 
 			input = _getch();
 
@@ -125,7 +123,7 @@ int main()
 			}
 			else
 			{
-				you.Move(input);
+				you.UpdateObject();
 			}
 
 			for (int i = 0; i < numbMonsters; i++)
