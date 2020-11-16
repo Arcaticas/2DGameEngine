@@ -48,6 +48,11 @@ void AiController::Move(Point2D& pos)
 	}
 }
 
+void AiController::PreUpdate(GameObject&)
+{
+
+}
+
 void AiController::Update(GameObject& obj)
 {
 	Move(obj.position);

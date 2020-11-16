@@ -8,6 +8,8 @@
 class Monster : public GameObject{
 
 public:
+	char* name;
+
 	Monster();
 	Monster(char* n, GameObject* target, int x, int y);
 

@@ -5,12 +5,13 @@ using namespace std;
 
 Monster::Monster()
 {
-
+	name = nullptr;
 }
 
 Monster::Monster(char* n, GameObject* player, int x, int y)
 {
 	Attach(&Name(n));
+	name = n;
 	Attach(&AiController(player));
 	position = Point2D(x, y);
 }

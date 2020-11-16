@@ -32,3 +32,8 @@ void GameObject::Attach(IObjectComponents* comp)
     }
 }
 
+void GameObject::UpdateObject()
+{
+
+}
+

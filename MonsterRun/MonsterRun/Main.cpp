@@ -54,7 +54,7 @@ int main()
 
 	
 	int turnCount = 0;
-
+	int input;
 	while (gameRunning) {
 		turnCount++;
 
@@ -89,7 +89,7 @@ int main()
 				delete[] pMonsters;
 				std::cout << "Enter the new monsters name: \n";
 				temp[numbMonsters - 1].Attach(&Name(gets_s(Input, lenInput)));
-				temp[numbMonsters - 1].Attach(&AiController(reinterpret_cast<GameObject>(you)));
+				temp[numbMonsters - 1].Attach(&AiController(&you));
 
 				pMonsters = new (std::nothrow) Monster[numbMonsters];
 
@@ -106,7 +106,7 @@ int main()
 		if (pMonsters != 0) {
 			for (int i = 0; i < numbMonsters; i++)
 			{
-				std::cout << pMonsters[i].getName() << " is at (" << pMonsters[i].position.getXPosition() << ',' << pMonsters[i].position.getYPosition() << ").\n";
+				std::cout << pMonsters[i].name << " is at (" << pMonsters[i].position.getXPosition() << ',' << pMonsters[i].position.getYPosition() << ").\n";
 				if (pMonsters[i].position.getXPosition() == you.position.getXPosition() && pMonsters[i].position.getYPosition() == you.position.getYPosition())
 				{
 					std::cout << "A monster got you! Hit any key to quit.";
@@ -128,7 +128,7 @@ int main()
 
 			for (int i = 0; i < numbMonsters; i++)
 			{
-				//pMonsters[i].Move(you);
+				pMonsters[i].UpdateObject();
 			}
 		}
 		
