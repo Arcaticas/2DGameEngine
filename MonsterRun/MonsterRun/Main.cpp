@@ -7,6 +7,14 @@
 
 int main()
 {
+
+	void Point2DUnitTest();
+	std::cout << "2DUnitTest Passed\n";
+
+
+
+
+
 	bool gameRunning = true;
 	Actor you;
 	const size_t lenInput = 128;
