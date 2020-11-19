@@ -141,14 +141,18 @@ int main()
     double UpdateFastCharactersTime = 0.0;
     double UpdateAoSCharactersTime = 0.0;
 
+   
     SlowCharacterData* slowData = new SlowCharacterData[NumRuns];
     FastCharacter* fastData = new FastCharacter[NumRuns];
     SoACharacter* SoAData = new SoACharacter;
 
-    UpdateCharactersTime += UpdateCharacters(slowData);
-    UpdateFastCharactersTime += UpdateFastCharacters(fastData);
-    UpdateAoSCharactersTime += UpdateSoACharacters(SoAData);
-
+    for (int i = 0; i < 1000; i++)
+    {
+        UpdateCharactersTime += UpdateCharacters(slowData);
+        UpdateFastCharactersTime += UpdateFastCharacters(fastData);
+        UpdateAoSCharactersTime += UpdateSoACharacters(SoAData);
+    }
+    
     printf("Update Characters time %fms.\n", UpdateCharactersTime);
     printf("Update FastCharacters time %fms.\n", UpdateFastCharactersTime);
     printf("Update AoSCharacters time %fms.\n", UpdateAoSCharactersTime);
