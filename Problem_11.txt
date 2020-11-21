@@ -1,0 +1,50 @@
+const char * itoa( int i_int )
+{
+	const char * ret;
+	char * temp;
+	bool isNegative;
+	
+	if(i_int == 0)
+	{
+		ret = "0\0";
+		return ret;
+	}
+
+	if(i_int < 0)
+	{
+		isNegative = true;
+	}
+	
+	int digits;
+	int num = i_int;
+
+	while(true)
+	{
+		if(num==0)
+			break;
+		else
+		{
+			num = num/10;
+			digits++;
+		}
+	}
+	
+	if(isNegative)
+		digits++;
+	num = i_int;
+	int rem;
+	temp[digits] = '\0';
+	digits--;
+	while(digits >= 0)
+	{
+		rem = num % 10;
+		temp[digits] = rem;
+		digits--;
+		num = num/10;
+		if(digits == 0 && isNegative)
+			temp[0] = '-';
+	}
+	ret = temp;
+	return ret;
+	
+}
