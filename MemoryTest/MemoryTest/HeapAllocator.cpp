@@ -78,20 +78,21 @@ void HeapAllocator::ReturnMemoryBlock( MemoryBlock* i_pFreeBlock)
     pFreeMemBlocks = i_pFreeBlock;
 }
 
-void HeapAllocator::Coalesce()
+bool HeapAllocator::Coalesce()
 {
     MemoryBlock* current = pFreeList;
     MemoryBlock* compare;
     while (current != nullptr)
     {
         compare = pFreeList;
-        while (compare != nullptr)
+        while (compare->pNextBlock != nullptr)
         {
-            if (reinterpret_cast<void*>(reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize) == compare->pBaseAddress)
+            if (reinterpret_cast<void*>(reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize) == compare->pNextBlock->pBaseAddress)
             {
-                current->BlockSize += compare->BlockSize;
-                current->pNextBlock = compare->pNextBlock;
+                current->BlockSize += compare->pNextBlock->BlockSize;
+                MemoryBlock* temp = compare->pNextBlock->pNextBlock;
                 ReturnMemoryBlock(compare);
+                compare->pNextBlock = temp;
                 break;
 
             }
@@ -101,7 +102,7 @@ void HeapAllocator::Coalesce()
         }
         current = current->pNextBlock;
     }
-    
+    return true;
 }
 
 void* HeapAllocator::alloc(size_t size)
@@ -155,10 +156,10 @@ void* HeapAllocator::alloc(size_t size)
     return baseBlock->pBaseAddress;
 }
 
-void HeapAllocator::freeMem(void* ptr)
+bool HeapAllocator::freeMem(void* ptr)
 {
     if (ptr == nullptr)
-        return;
+        return false;
 
     MemoryBlock* out = pOutstandingAllocations;
     if (out->pBaseAddress == ptr)
@@ -190,6 +191,7 @@ void HeapAllocator::freeMem(void* ptr)
     }
     
     Coalesce();
+    return true;
 }
 
 bool HeapAllocator::isAllocated(void* ptr)
@@ -244,4 +246,23 @@ void HeapAllocator::ShowFreeBlocks()
             break;
         }
     }
+}
+
+void HeapAllocator::Destroy()
+{
+    while (pOutstandingAllocations)
+    {
+        MemoryBlock* temp = pOutstandingAllocations;
+        pOutstandingAllocations = pOutstandingAllocations->pNextBlock;
+        freeMem(temp);
+    }
+
+    while (pFreeList)
+    {
+        MemoryBlock* temp = pFreeList;
+        pFreeList = pFreeList->pNextBlock;
+        ReturnMemoryBlock(temp);
+    }
+
+    delete this;
 }
