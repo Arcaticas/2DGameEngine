@@ -1,0 +1,27 @@
+class  LinkNode
+{
+	Data someData;
+	LinkNode * nextNode;
+}
+
+bool isCircular(LinkNode * i_pRoot)
+{
+	if(i_pRoot)
+		return null;
+	LinkNode* first = i_pRoot;
+	LinkNode * temp = i_pRoot;
+	while(temp)
+	{
+		if(temp->nextNode == nullptr)
+		{
+			return false;
+		}
+
+		temp = temp->nextNode;
+
+		if(&(temp->nextNode) == &first)
+		{
+			return true;
+		}
+	}
+}
