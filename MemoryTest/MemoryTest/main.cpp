@@ -1,9 +1,7 @@
-#include "HeapManager_UnitTest.cpp"
-#include "HeapAllocator.h"
-#include <Windows.h>
+
 #include <cassert>
-#include <assert.h>
 #include <iostream>
+#include "HeapManager_UnitTest.cpp"
 
 
 int main()
