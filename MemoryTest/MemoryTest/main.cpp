@@ -1,8 +1,8 @@
-
+#include "HeapAllocator.h"
 #include <cassert>
 #include <iostream>
-#include "HeapManager_UnitTest.cpp"
 
+bool HeapManager_UnitTest();
 
 int main()
 {
@@ -21,8 +21,8 @@ int main()
 
 	HeapAllocator* heapManager = HeapAllocator::Create(pHeapMemory,sizeHeap,numDescriptors);
 	*/
-	bool test = true;
-	HeapManager_UnitTest();
+	bool test = HeapManager_UnitTest();;
+	
 	std::cout << test;
 
 

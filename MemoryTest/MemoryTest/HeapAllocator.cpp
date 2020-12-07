@@ -91,15 +91,19 @@ bool HeapAllocator::Coalesce()
             {
                 current->BlockSize += compare->pNextBlock->BlockSize;
                 MemoryBlock* temp = compare->pNextBlock->pNextBlock;
-                ReturnMemoryBlock(compare);
-                compare->pNextBlock = temp;
+                ReturnMemoryBlock(compare->pNextBlock);
+                current->pNextBlock = temp;
                 break;
-
             }
-
+            if (compare == compare->pNextBlock->pNextBlock)
+                break;
             compare = compare->pNextBlock;
-            
         }
+        if (current->pNextBlock == nullptr)
+            break;
+        if (current == current->pNextBlock->pNextBlock)
+            break;
+        
         current = current->pNextBlock;
     }
     return true;
@@ -116,11 +120,13 @@ void* HeapAllocator::alloc(size_t size)
 #if defined(_DEBUG)
     size += 4;
 #endif
+    
     //find a memory block in free thats large enough with alignment
     while (free)
     {
         if (free->BlockSize > size + (size%4))
             break;
+        Coalesce();
         free = free->pNextBlock;
     }
     assert(free);
@@ -196,18 +202,17 @@ bool HeapAllocator::freeMem(void* ptr)
 
 bool HeapAllocator::isAllocated(void* ptr)
 {
-    MemoryBlock* free = pFreeList;
-    while (free)
+    MemoryBlock* out = pOutstandingAllocations;
+    while (out)
     {
-        if (free->pBaseAddress == ptr)
+        if (out->pBaseAddress == ptr)
         {
             return true;
         }
-        if (free->pBaseAddress == free->pNextBlock->pNextBlock->pBaseAddress)
-        {
+        if (out->pNextBlock != nullptr)
+            out = out->pNextBlock;
+        else
             break;
-        }
-        free = free->pNextBlock;
     }
     return false;
 }

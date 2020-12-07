@@ -35,3 +35,5 @@ private:
     struct MemoryBlock* pFreeList;
     struct MemoryBlock* pOutstandingAllocations;
 };
+
+
