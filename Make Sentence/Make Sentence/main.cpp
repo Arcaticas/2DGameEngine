@@ -29,10 +29,16 @@ const char* MakeSentence(char* i_strings[])
 		word++;
 
 	}
-
-	char* sentence = reinterpret_cast<char*>(malloc(size * sizeof(char)));
-	const char* ret;
+	size++;
+#if defined(_DEBUG)
+	//size -= 4;
+	char* sentence = reinterpret_cast<char*>(malloc(size));
+	//size += 4;
+#else // _DEBUG
+	char* sentence = reinterpret_cast<char*>(malloc(size));
+#endif
 	
+	const char* ret;
 	bool first = true;
 	word = 0;
 	if (sentence)
@@ -53,11 +59,14 @@ const char* MakeSentence(char* i_strings[])
 					*sentence = i_strings[word][letter];
 
 				}
+
 				letter++;
 				sentence++;
 
 
 			}
+
+
 			*sentence = ' ';
 			sentence++;
 			word++;
@@ -65,17 +74,12 @@ const char* MakeSentence(char* i_strings[])
 		sentence--;
 		*sentence = '.';
 		sentence++;
+		*sentence = '\0';
 	}
-
-	
+	size--;
 	sentence -= size;
 
-
-
-
 	ret = sentence;
-	free(sentence);
-
 	return ret;
 }
 
@@ -187,9 +191,16 @@ int main(int i_argc, char** i_argl)
 		}
 		std::cout << "\n";
 	}*/
-	
 
-	printf(MakeSentence(stringSentence));
+
+	const char* sent = MakeSentence(stringSentence);
+	printf(sent);
+
+	char* fsent = const_cast<char*>(sent);
+	free(fsent);
+
+
+
 
 	// free the memory it allocated.
 	if (stringSentence)
