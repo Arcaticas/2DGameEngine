@@ -8,20 +8,20 @@ bool isCircular(LinkNode * i_pRoot)
 {
 	if(i_pRoot)
 		return null;
-	LinkNode* first = i_pRoot;
-	LinkNode * temp = i_pRoot;
-	while(temp)
+
+	LinkNode* fast = i_pRoot;
+	LinkNode * slow = i_pRoot;
+	bool slowGo = false;
+	while(fast!=slow && fast->nextNode)
 	{
-		if(temp->nextNode == nullptr)
+		if(slowGo)
 		{
-			return false;
+			slow = slow->nextNode;
 		}
+		fast = fast->nextNode;
 
-		temp = temp->nextNode;
-
-		if(&(temp->nextNode) == &first)
-		{
-			return true;
-		}
+		slowGo = !slowGo;
 	}
+
+	return(slow == fast);
 }

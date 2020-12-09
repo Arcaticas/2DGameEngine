@@ -29,9 +29,14 @@ const char * itoa( int i_int )
 		}
 	}
 	
-	if(isNegative)
-		digits++;
+	
 	num = i_int;
+	if(isNegative)
+	{
+		digits++;
+		num = num*-1;
+	}
+
 	int rem;
 	temp[digits] = '\0';
 	digits--;
