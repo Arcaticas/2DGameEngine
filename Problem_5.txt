@@ -1,24 +1,20 @@
-void Reverse(const char * i_pString)
+void Reverse(char * string)
 {
-	if(!i_pString)
+	if(!string)
 		return;
-	char * temp;
-	size_t count = 0;
 
-	while(i_pString[count]!='\0')
+	char* end = string;
+	while(*tail)
 	{
-		count++;
+		tail++;
 	}
-	
-	size_t index = 0;
+	tail--;
 
-	while(count>=0)
+	for( ; string < tail; string++, tail--)
 	{
-		temp[index] = i_pString[count];
-		index++;
-		count--;
+		char s = *string;
+		char t = *tail;
+		*string = t;
+		*tail = s;
 	}
-	
-	i_pString = temp;
-	return;
 }
