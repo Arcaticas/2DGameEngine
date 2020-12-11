@@ -9,8 +9,8 @@ Player::Player() {
 
 Player::Player(char* n, int x, int y) {
 
-	Attach(&Name(n));
-	Attach(&PlayerController());
+	Attach(new Name(n));
+	Attach(new PlayerController());
 	position = Point2D(x, y);
 
 }
@@ -18,13 +18,14 @@ Player::Player(char* n, int x, int y) {
 void Player::UpdateObject() 
 {
 	const size_t count = components.size();
+
 	for (size_t i = 0; i < count; i++)
 	{
 		components[i]->PreUpdate(*this);
 	}
 
-	for (size_t i = 0; i < count; i++)
+	for (size_t j = 0; j < count; j++)
 	{
-			components[i]->Update(*this);
+			components[j]->Update(*this);
 	}
 }

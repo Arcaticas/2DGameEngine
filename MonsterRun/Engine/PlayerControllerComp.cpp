@@ -40,7 +40,7 @@ void PlayerController::PreUpdate(GameObject& obj)
 	while (temp != 'w' && temp != 'a' && temp != 's' && temp != 'd')
 	{
 		std::cout << "WASD To move the player.\n";
-		char temp = _getch();
+		temp = _getch();
 	}
 	GetInput(temp);
 }

@@ -10,9 +10,9 @@ Monster::Monster()
 
 Monster::Monster(char* n, GameObject* player, int x, int y)
 {
-	Attach(&Name(n));
+	Attach(new Name(n));
 	name = n;
-	Attach(&AiController(player));
+	Attach(new AiController(player));
 	position = Point2D(x, y);
 }
 

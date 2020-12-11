@@ -11,7 +11,7 @@ Actor::Actor()
 
 Actor::Actor(char* n, int xPos, int yPos)
 {
-	Attach(&Name(n));
+	Attach(new Name(n));
 	position = Point2D(xPos, yPos);
 }
 

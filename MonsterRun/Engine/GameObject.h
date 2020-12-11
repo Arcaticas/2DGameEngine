@@ -15,7 +15,6 @@ class GameObject {
 public:
 	GameObject();
 	GameObject(int, int);
-	~GameObject();
 	void Attach(IObjectComponents* );
 	virtual void UpdateObject();
 

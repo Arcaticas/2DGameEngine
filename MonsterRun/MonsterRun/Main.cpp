@@ -47,7 +47,8 @@ int main()
 		
 		std::cout << "What would you like to name monster " << i+1 << ":\n";
 		if (pMonsters != 0) {
-			pMonsters[i].Attach(&Name(gets_s(Input, lenInput)));
+			gets_s(Input, lenInput);
+			pMonsters[i] =  *(new Monster(Input,&you,0,0));
 		}
 			
 	}
@@ -79,17 +80,16 @@ int main()
 
 			temp = new (std::nothrow) Monster[numbMonsters];
 			if (temp != 0) {
-				for (int i = 0; i < numbMonsters; i++) {
-					if (pMonsters != 0) {
+				for (int i = 0; i < numbMonsters-1; i++) {
+					if (pMonsters!=0) {
 						temp[i] = pMonsters[i];
-
 					}
 				}
 
 				delete[] pMonsters;
 				std::cout << "Enter the new monsters name: \n";
-				temp[numbMonsters - 1].Attach(&Name(gets_s(Input, lenInput)));
-				temp[numbMonsters - 1].Attach(&AiController(&you));
+				gets_s(Input, lenInput);
+				temp[numbMonsters - 1] = *(new Monster(Input, &you, 0, 0));
 
 				pMonsters = new (std::nothrow) Monster[numbMonsters];
 
@@ -103,6 +103,7 @@ int main()
 			}
 			
 		}
+
 		if (pMonsters != 0) {
 			for (int i = 0; i < numbMonsters; i++)
 			{
