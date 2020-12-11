@@ -59,7 +59,11 @@ MemoryBlock* HeapAllocator::InitializeMemoryBlocks(void* i_pBlocksMemory, size_t
 
 MemoryBlock* HeapAllocator::GetMemoryBlock()
 {
-    //assert(pFreeList != nullptr);
+    
+    //assert(pFreeMemBlocks != nullptr);
+
+    if (pFreeMemBlocks == nullptr)
+        return nullptr;
 
     MemoryBlock* pReturnBlock = pFreeMemBlocks;
     pFreeMemBlocks = pFreeMemBlocks->pNextBlock;
@@ -82,30 +86,64 @@ bool HeapAllocator::Coalesce()
 {
     MemoryBlock* current = pFreeList;
     MemoryBlock* compare;
-    while (current != nullptr)
+
+    MemoryBlock* slowCurr = current;
+    MemoryBlock* fastCurr = current;
+    bool slowCurrGo = false;
+
+    while (current->pNextBlock != nullptr)
     {
         compare = pFreeList;
+        MemoryBlock* slowComp = pFreeList;
+        MemoryBlock* fastComp = pFreeList;
+        bool slowCompGo = false;
+
         while (compare->pNextBlock != nullptr)
         {
-            if (reinterpret_cast<void*>(reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize) == compare->pNextBlock->pBaseAddress)
+            if (reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize == compare->pNextBlock->pBaseAddress)
             {
                 current->BlockSize += compare->pNextBlock->BlockSize;
                 MemoryBlock* temp = compare->pNextBlock->pNextBlock;
+
+                if (compare->pNextBlock == slowCurr)
+                    slowCurr = slowCurr->pNextBlock;
+
                 ReturnMemoryBlock(compare->pNextBlock);
-                current->pNextBlock = temp;
+                compare->pNextBlock = temp;
+                Coalesce();
+            }
+            compare = compare->pNextBlock;
+
+            if (slowCompGo)
+            {
+                slowComp = slowComp->pNextBlock;
+            }
+            slowCompGo = !slowCompGo;
+            fastComp = fastComp->pNextBlock;
+
+            if (slowComp == fastComp)
+            {
                 break;
             }
-            if (compare == compare->pNextBlock->pNextBlock)
-                break;
-            compare = compare->pNextBlock;
         }
-        if (current->pNextBlock == nullptr)
-            break;
-        if (current == current->pNextBlock->pNextBlock)
-            break;
-        
+
         current = current->pNextBlock;
+
+        if (slowCurrGo)
+        {
+            slowCurr = slowCurr->pNextBlock;
+        }
+
+        slowCurrGo = !slowCurrGo;
+
+        fastCurr = fastCurr->pNextBlock;
+
+        if (slowCurr == fastCurr)
+        {
+            break;
+        }
     }
+
     return true;
 }
 
@@ -116,35 +154,33 @@ void* HeapAllocator::alloc(size_t size)
 
     MemoryBlock* baseBlock = GetMemoryBlock();
 
+    if (baseBlock == nullptr)
+        return nullptr;
+
     MemoryBlock* free = pFreeList;
-#if defined(_DEBUG)
-    size += 4;
-#endif
-    
+
+    size_t allignmentCheck = 4 - (size % 4);
+    if (allignmentCheck == 4)
+        allignmentCheck = 0;
+
+
     //find a memory block in free thats large enough with alignment
     while (free)
     {
-        if (free->BlockSize > size + (size%4))
+        if (free->BlockSize > size + allignmentCheck)
             break;
-        Coalesce();
+
         free = free->pNextBlock;
     }
     assert(free);
 
     //find the back of the memory block
     void* back = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size);
-    //4 byte alignment
-    size_t amend = 4 - (size % 4);
-    if (amend == 4)
-    {
-        amend = 0;
-    }
-#if defined(_DEBUG)
-    amend += 4;
-#endif
+
+
     //move back from the end of the memory block
-    baseBlock->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(back)-size-amend);
-    baseBlock->BlockSize = size + amend;
+    baseBlock->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(back) - (size + allignmentCheck));
+    baseBlock->BlockSize = size + allignmentCheck;
     //track the allocated memory
     if (pOutstandingAllocations == nullptr)
     {
@@ -156,8 +192,8 @@ void* HeapAllocator::alloc(size_t size)
         pOutstandingAllocations = baseBlock;
     }
     //shrink the size of free
-    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size + amend);
-    free->BlockSize -= size + amend;
+    free->pBaseAddress = reinterpret_cast<void*>(reinterpret_cast<char*>(free->pBaseAddress) + size + allignmentCheck);
+    free->BlockSize -= size + allignmentCheck;
     //return the address
     return baseBlock->pBaseAddress;
 }
@@ -220,7 +256,11 @@ bool HeapAllocator::isAllocated(void* ptr)
 void HeapAllocator::ShowOutstandingAllocations()
 {
     MemoryBlock* out = pOutstandingAllocations;
-    while (out)
+    MemoryBlock* slow = out;
+    MemoryBlock* fast = out;
+    bool slowGo = false;
+
+    while (out->pNextBlock)
     {
         std::cout << out->pBaseAddress;
         std::cout << '\n';
@@ -228,17 +268,25 @@ void HeapAllocator::ShowOutstandingAllocations()
         std::cout << '\n';
 
         out = out->pNextBlock;
-        if (out->pBaseAddress == nullptr)
-        {
+
+        fast = fast->pNextBlock;
+        if (slowGo)
+            slow = slow->pNextBlock;
+        slowGo = !slowGo;
+
+        if (slow == fast)
             break;
-        }
     }
 }
 
 void HeapAllocator::ShowFreeBlocks()
 {
     MemoryBlock* free = pFreeList;
-    while (free)
+    MemoryBlock* slow = free;
+    MemoryBlock* fast = free;
+    bool slowGo = false;
+
+    while (free->pNextBlock)
     {
         std::cout << free->pBaseAddress;
         std::cout << '\n';
@@ -246,10 +294,14 @@ void HeapAllocator::ShowFreeBlocks()
         std::cout << '\n';
 
         free = free->pNextBlock;
-        if (free->pBaseAddress == free->pNextBlock->pNextBlock->pBaseAddress)
-        {
+
+        fast = fast->pNextBlock;
+        if (slowGo)
+            slow = slow->pNextBlock;
+        slowGo = !slowGo;
+
+        if (slow == fast)
             break;
-        }
     }
 }
 
