@@ -110,7 +110,7 @@ bool HeapAllocator::Coalesce()
 
                 ReturnMemoryBlock(compare->pNextBlock);
                 compare->pNextBlock = temp;
-                Coalesce();
+                break;
             }
             compare = compare->pNextBlock;
 
