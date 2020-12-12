@@ -3,7 +3,7 @@ void Reverse(char * string)
 	if(!string)
 		return;
 
-	char* end = string;
+	char* tail = string;
 	while(*tail)
 	{
 		tail++;

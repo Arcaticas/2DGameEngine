@@ -9,9 +9,9 @@ bool isCircular(LinkNode * i_pRoot)
 	if(i_pRoot)
 		return null;
 
-	LinkNode* fast = i_pRoot;
+	LinkNode* fast = i_pRoot->nextNode;
 	LinkNode * slow = i_pRoot;
-	bool slowGo = false;
+	bool slowGo = true;
 	while(fast!=slow && fast->nextNode)
 	{
 		if(slowGo)
