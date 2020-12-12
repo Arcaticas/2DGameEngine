@@ -14,29 +14,31 @@ public:
 	Point2D(int, int);
 	Point2D(int, int, int, int);
 
-	Point2D operator-();
-	Point2D operator+=(Point2D p);
-	Point2D operator-=(Point2D p);
-	Point2D operator*=(int);
-	Point2D operator/=(int);
+	inline Point2D operator+=(const Point2D& p);
+	inline Point2D operator-=(const Point2D& p);
+	inline Point2D operator*=(const int);
+	inline Point2D operator/=(const int);
+	inline Point2D operator-();
 	
-	void setXPosition(int i) { _x = i; }
-	void setYPosition(int i) { _y = i; }
-	void setXVector(int i) { xVector = i; }
-	void setYVector(int i) { yVector = i; }
+	void setXPosition(const int i) { _x = i; }
+	void setYPosition(const int i) { _y = i; }
+	void setXVector(const int i) { xVector = i; }
+	void setYVector(const int i) { yVector = i; }
 
-	int getXPosition() { return _x; }
-	int getYPosition() { return _y; }
-	int getXVector() { return xVector; }
-	int getYVector() { return yVector; }
+	int getXPosition() const { return _x; }
+	int getYPosition() const { return _y; }
+	int getXVector() const { return xVector; }
+	int getYVector() const { return yVector; }
 };
 
-bool operator==(Point2D, Point2D);
-bool operator!=(Point2D, Point2D);
+inline bool operator==(const Point2D&, const Point2D&);
+inline bool operator!=(const Point2D&, const Point2D&);
 
-Point2D operator+(Point2D, Point2D);
-Point2D operator-(Point2D, Point2D);
-Point2D operator*(Point2D p, int i);
-Point2D operator*(int, Point2D);
-Point2D operator/(Point2D p, int i);
+inline Point2D operator+(const Point2D&, const Point2D&);
+inline Point2D operator-(const Point2D&, const Point2D&);
+inline Point2D operator*(const Point2D&, const int);
+inline Point2D operator*(const int, const Point2D&);
+inline Point2D operator/(const Point2D& , const int);
+
+#include "Point2D-inl.h"
 #endif

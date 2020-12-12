@@ -35,7 +35,7 @@ void Actor::Move(char c)
 
 	if (c == 'w')
 	{
-		setXPosition(getYPosition() + 1);
+		setYPosition(getYPosition() + 1);
 	}
 	if (c == 'a')
 	{
@@ -43,7 +43,7 @@ void Actor::Move(char c)
 	}
 	if (c == 's')
 	{
-		setXPosition(getYPosition() - 1);
+		setYPosition(getYPosition() - 1);
 	}
 	if (c == 'd')
 	{

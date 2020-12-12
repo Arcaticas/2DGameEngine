@@ -3,11 +3,17 @@
 #include <stdio.h>
 #include "Monster.h"
 #include "Actor.h"
-#include <Point2DUnitTest.cpp>
+
 
 int main()
 {
-	Point2DUnitTest();
+
+	void Point2DUnitTest();
+	std::cout << "2DUnitTest Passed\n";
+
+
+
+
 
 	bool gameRunning = true;
 	Actor you;

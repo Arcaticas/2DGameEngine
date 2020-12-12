@@ -17,7 +17,7 @@ void Point2DUnitTest()
     bool bNotEqual = A != B;
     assert(bNotEqual == true);
 
-    bool bNotEqual = B != Point2D(2, 3);
+    bNotEqual = B != Point2D(2, 3);
     assert(bNotEqual == false);
 
     // Point2D + Point2D
