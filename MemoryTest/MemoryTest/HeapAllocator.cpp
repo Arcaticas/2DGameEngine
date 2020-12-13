@@ -82,66 +82,77 @@ void HeapAllocator::ReturnMemoryBlock( MemoryBlock* i_pFreeBlock)
     pFreeMemBlocks = i_pFreeBlock;
 }
 
+bool HeapAllocator::IsCircular(MemoryBlock* i_pList) const
+{
+    MemoryBlock* pFullSpeed = i_pList;
+    MemoryBlock* pHalfSpeed = i_pList;
+    
+    bool bMoveBoth = false;
+    
+    while(pFullSpeed != nullptr)
+    {
+        pFullSpeed = pFullSpeed->pNextBlock;
+
+        if(pFullSpeed == pHalfSpeed)
+            return true;
+
+        if(bMoveBoth)
+            pHalfSpeed = pHalfSpeed->pNextBlock;
+
+        bMoveBoth = !bMoveBoth;
+    }
+    return false;
+}
+
 bool HeapAllocator::Coalesce()
 {
+    assert(!IsCircular(pFreeList));
+
+    if (pFreeList == nullptr)
+        return true;
+
     MemoryBlock* current = pFreeList;
     MemoryBlock* compare;
-
-    MemoryBlock* slowCurr = current;
-    MemoryBlock* fastCurr = current;
-    bool slowCurrGo = false;
 
     while (current->pNextBlock != nullptr)
     {
         compare = pFreeList;
-        MemoryBlock* slowComp = pFreeList;
-        MemoryBlock* fastComp = pFreeList;
-        bool slowCompGo = false;
+        MemoryBlock* previous_compare = nullptr;
 
-        while (compare->pNextBlock != nullptr)
+        while (compare != nullptr)
         {
-            if (reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize == compare->pNextBlock->pBaseAddress)
+            // does current end where compare starts?
+            if (reinterpret_cast<char*>(current->pBaseAddress) + current->BlockSize == compare->pBaseAddress)
             {
-                current->BlockSize += compare->pNextBlock->BlockSize;
-                MemoryBlock* temp = compare->pNextBlock->pNextBlock;
+                // consome compare's bytes
+                current->BlockSize += compare->BlockSize;
 
-                if (compare->pNextBlock == slowCurr)
-                    slowCurr = slowCurr->pNextBlock;
+                // now remove compare from pFreeList since it's memory is in current
+                if (previous_compare)
+                {
+                    // if previous_comare is not null it's the compare block
+                    previous_compare->pNextBlock = compare->pNextBlock;
+                }
+                else
+                {
+                    // if previous_compare is null compare is pFreeList
+                    pFreeList = compare->pNextBlock;
+                }
 
-                ReturnMemoryBlock(compare->pNextBlock);
-                compare->pNextBlock = temp;
-                break;
+                MemoryBlock* remove = compare;
+                // set it to previous because we're moving on
+                compare = compare->pNextBlock;
+
+                ReturnMemoryBlock(remove);
             }
-            compare = compare->pNextBlock;
-
-            if (slowCompGo)
+            else
             {
-                slowComp = slowComp->pNextBlock;
-            }
-            slowCompGo = !slowCompGo;
-            fastComp = fastComp->pNextBlock;
-
-            if (slowComp == fastComp)
-            {
-                break;
+                previous_compare = compare;
+                compare = compare->pNextBlock;
             }
         }
 
         current = current->pNextBlock;
-
-        if (slowCurrGo)
-        {
-            slowCurr = slowCurr->pNextBlock;
-        }
-
-        slowCurrGo = !slowCurrGo;
-
-        fastCurr = fastCurr->pNextBlock;
-
-        if (slowCurr == fastCurr)
-        {
-            break;
-        }
     }
 
     return true;
@@ -201,9 +212,10 @@ void* HeapAllocator::alloc(size_t size)
 bool HeapAllocator::freeMem(void* ptr)
 {
     if (ptr == nullptr)
-        return false;
+        return true;
 
     MemoryBlock* out = pOutstandingAllocations;
+    //Checks if first block is desired pointer
     if (out->pBaseAddress == ptr)
     {
         pOutstandingAllocations = out->pNextBlock;
@@ -212,6 +224,7 @@ bool HeapAllocator::freeMem(void* ptr)
     }
     else
     {
+        //Moves through the list till pointer is found
         while (out)
         {
             if (out->pNextBlock->pBaseAddress == ptr)
@@ -220,7 +233,7 @@ bool HeapAllocator::freeMem(void* ptr)
             }
             out = out->pNextBlock;
         }
-
+        //frees pointer
         if (out)
         {
             MemoryBlock* temp = out->pNextBlock;
@@ -229,6 +242,8 @@ bool HeapAllocator::freeMem(void* ptr)
             temp->pNextBlock = pFreeList;
             pFreeList = temp;
         }
+        else
+            return false;
         
     }
     

@@ -21,7 +21,7 @@ int main()
 
 	HeapAllocator* heapManager = HeapAllocator::Create(pHeapMemory,sizeHeap,numDescriptors);
 	*/
-	bool test = HeapManager_UnitTest();;
+	bool test = HeapManager_UnitTest();
 	
 	std::cout << test;
 
