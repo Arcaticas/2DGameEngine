@@ -29,7 +29,7 @@ private:
     MemoryBlock* InitializeMemoryBlocks(void* i_pBlocksMemory, size_t i_BlocksMemorySize);
     MemoryBlock* GetMemoryBlock();
     void ReturnMemoryBlock(MemoryBlock* i_pFreeBlock);
-    bool IsCircular(MemoryBlock* i_pList) const;
+    bool isCircular(MemoryBlock* i_pList) const;
 
     struct MemoryBlock* pFreeMemBlocks;
     struct MemoryBlock* pFreeList;
