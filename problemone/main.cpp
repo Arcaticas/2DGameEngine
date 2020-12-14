@@ -89,10 +89,16 @@ void RunGame()
 			{
 				const char* pTypeName = (*iter)->getTypeName();
 				printf("The last GameActor standing is a %s. %s types win!!!!\n", pTypeName, pTypeName);
+				delete(*iter);
+				AllActors.erase(iter);
 				break;
 			}
 		}
 	}
 
 	AllActors.clear();
+
+#ifdef _DEBUG
+	_CrtDumpMemoryLeaks();
+#endif
 }

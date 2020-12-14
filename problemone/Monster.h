@@ -11,7 +11,8 @@ public:
 	Monster(const Engine::Math::Vector2& i_InitialPosition, int i_InitialHealth) :
 		GameActor(i_InitialPosition, i_InitialHealth)
 	{ }
-
+	~Monster()
+	{}
 	// return my specific type
-	virtual const char* getTypeName() const override { return "Monster"; }
+	virtual const char* getTypeName() const { return "Monster"; }
 };
