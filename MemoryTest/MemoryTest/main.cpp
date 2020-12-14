@@ -1,11 +1,12 @@
 #include "HeapAllocator.h"
-#include <Windows.h>
 #include <cassert>
-#include <assert.h>
+#include <iostream>
 
+bool HeapManager_UnitTest();
 
 int main()
 {
+	/*
 	const size_t            sizeHeap = 1024 * 1024;
 	const unsigned int      numDescriptors = 2048;
 
@@ -19,10 +20,12 @@ int main()
 	assert(pHeapMemory);
 
 	HeapAllocator* heapManager = HeapAllocator::Create(pHeapMemory,sizeHeap,numDescriptors);
+	*/
+	bool test = HeapManager_UnitTest();
+	
+	std::cout << test;
 
-	void* ptr = heapManager->alloc(13);
-	void* ptr2 = heapManager->alloc(9);
-	void* ptr3 = heapManager->alloc(9001);
+
 
 	return 0;
 }
