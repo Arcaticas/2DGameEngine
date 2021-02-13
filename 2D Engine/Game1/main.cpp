@@ -9,9 +9,6 @@
 #include "Physics.h"
 #include "Timing.h"
 
-
-using namespace GLib;
-
 bool aDown = false;
 bool dDown = false;
 
@@ -49,7 +46,7 @@ void* LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 	return pBuffer;
 }
 
-Sprite* CreateSprite(const char* i_pFilename)
+GLib::Sprite* CreateSprite(const char* i_pFilename)
 {
 	assert(i_pFilename);
 
@@ -116,37 +113,70 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
-	bool bSuccess = Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
+	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
 
 	if (bSuccess&&tSuccess)
 	{
-		SetKeyStateChangeCallback(TestKeyCallback);
+		GLib::SetKeyStateChangeCallback(TestKeyCallback);
 		
+		Physics::TwoDPhysicsObj obj1 = Physics::TwoDPhysicsObj();
+		Physics::TwoDPhysicsObj obj2 = Physics::TwoDPhysicsObj(-200,-200);
 
-		Sprite* sprite1 = CreateSprite("sprites\\PP1.dds");
-		Sprite* sprite2 = CreateSprite("sprites\\PP2.dds");
+		std::vector<Vector2> forces1;
+		std::vector<Vector2> forces2;
+
+		GLib::Sprite* sprite1 = CreateSprite("sprites\\PP1.dds");
+		GLib::Sprite* sprite2 = CreateSprite("sprites\\PP2.dds");
+
+		float dT;
 
 		bool bQuit = false;
 
 		do {
 
-			Service(bQuit);
+			GLib::Service(bQuit);
 
 			if (!bQuit)
 			{
+				dT = Physics::GetFrameTime();
 
-				BeginRendering(DirectX::Colors::Red);
-				Sprites::BeginRendering();
+				if (aDown)
+				{
+					forces1.push_back(Vector2(1, 1));
+				}
+				else
+				{
+					forces1.clear();
+				}
+
+				if (dDown)
+				{
+					forces2.push_back(Vector2(-1, -1));
+				}
+				else
+				{
+					forces2.clear();
+				}
+
+
+				Physics::Update(obj1, forces1, dT);
+				Physics::Update(obj2, forces2, dT);
+
+
+
+
+
+
+
+				//Rendering
+				GLib::BeginRendering(DirectX::Colors::Red);
+				GLib::Sprites::BeginRendering();
 				
 				if (sprite1)
 				{
 					static float radi1 = 0;
-					static Point2D offset1 = { -200.0f,-200.0f };
-					if (aDown)
-					{
-
-					}
+					static GLib::Point2D offset1 = { -200.0f,-200.0f };
 
 					Render(*sprite1, offset1, 0.0f, radi1);
 				}
@@ -154,7 +184,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 				if (sprite2)
 				{
 					static float radi2 = 0;
-					static Point2D offset2 = { -200.0f,-400.0f };
+					static GLib::Point2D offset2 = { -200.0f,-400.0f };
 					if (dDown)
 					{
 
@@ -164,8 +194,8 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				
 
-				Sprites::EndRendering();
-				EndRendering();
+				GLib::Sprites::EndRendering();
+				GLib::EndRendering();
 			}
 		} while (bQuit == false);
 
@@ -175,7 +205,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 			Release(sprite2);
 
 
-		Shutdown();
+		GLib::Shutdown();
 	}
 
 #if defined _DEBUG

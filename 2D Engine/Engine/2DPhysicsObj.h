@@ -6,6 +6,10 @@ namespace Physics {
 	{
 
 	public:
+		TwoDPhysicsObj();
+		TwoDPhysicsObj(float xP, float yP);
+		TwoDPhysicsObj(float xP, float yP, float mass);
+
 		float GetXPosition() { return xPosition; }
 		float GetYPosition() { return yPosition; }
 		float GetXVelocity() { return xVelocity; }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "2DPhysicsObj.h"
+#include "Timing.h"
 
 
 struct Vector2
@@ -34,5 +35,5 @@ public:
 namespace Physics
 {
 	float GetFrameTime();
-	void Update(TwoDPhysicsObj& obj, float dT, std::vector<Vector2>& forces);
+	void Update(TwoDPhysicsObj& obj, std::vector<Vector2>& forces, float dT);
 }

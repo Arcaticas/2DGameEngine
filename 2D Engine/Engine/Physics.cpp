@@ -26,7 +26,7 @@ namespace Physics
 		return IsDebuggerPresent() ? (1.0f / 60.0f) : FrameTime;
 	}
 
-	void Update(TwoDPhysicsObj& obj, float dT, std::vector<Vector2>& forces)
+	void Update(TwoDPhysicsObj& obj, std::vector<Vector2>& forces, float dT)
 	{
 		float xForces = 0;
 		float yForces = 0;
