@@ -6,6 +6,9 @@
 #include <DirectXColors.h>
 
 #include "GLib.h"
+#include "Physics.h"
+#include "Timing.h"
+
 
 using namespace GLib;
 
@@ -110,18 +113,16 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 		dDown = false;
 }
 
-void rotateSprite(float& rad)
-{
-	rad = rad + (3.14 / 18);
-}
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
-	bool bSuccess = Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 800, 600, true);
+	bool bSuccess = Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
+	bool tSuccess = Timing::Int();
 
-	if (bSuccess)
+	if (bSuccess&&tSuccess)
 	{
 		SetKeyStateChangeCallback(TestKeyCallback);
+		
 
 		Sprite* sprite1 = CreateSprite("sprites\\PP1.dds");
 		Sprite* sprite2 = CreateSprite("sprites\\PP2.dds");
@@ -144,7 +145,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 					static Point2D offset1 = { -200.0f,-200.0f };
 					if (aDown)
 					{
-						rotateSprite(radi1);
+
 					}
 
 					Render(*sprite1, offset1, 0.0f, radi1);
@@ -156,7 +157,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 					static Point2D offset2 = { -200.0f,-400.0f };
 					if (dDown)
 					{
-						rotateSprite(radi2);
+
 					}
 					Render(*sprite2, offset2, 0.0f, radi2);
 				}

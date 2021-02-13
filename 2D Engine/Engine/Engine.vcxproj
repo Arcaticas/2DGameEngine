@@ -141,6 +141,14 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h" />
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
+    <ClInclude Include="2DPhysicsObj.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="Timing.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="2DPhysicsObj.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="TimingWin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
