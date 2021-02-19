@@ -143,7 +143,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (aDown)
 				{
-					forces1.push_back(Vector2(1, 1));
+					forces1.push_back(Vector2(.001, .001));
 				}
 				else
 				{
@@ -152,7 +152,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (dDown)
 				{
-					forces2.push_back(Vector2(-1, -1));
+					forces2.push_back(Vector2(-.001, -.001));
 				}
 				else
 				{
@@ -164,32 +164,21 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 				Physics::Update(obj2, forces2, dT);
 
 
-
-
-
-
-
 				//Rendering
 				GLib::BeginRendering(DirectX::Colors::Red);
 				GLib::Sprites::BeginRendering();
 				
 				if (sprite1)
 				{
-					static float radi1 = 0;
-					static GLib::Point2D offset1 = { -200.0f,-200.0f };
+					GLib::Point2D offset1 = { obj1.GetXPosition(), obj1.GetYPosition() };
 
-					Render(*sprite1, offset1, 0.0f, radi1);
+					Render(*sprite1, offset1, 0.0f, 0.0f);
 				}
 
 				if (sprite2)
 				{
-					static float radi2 = 0;
-					static GLib::Point2D offset2 = { -200.0f,-400.0f };
-					if (dDown)
-					{
-
-					}
-					Render(*sprite2, offset2, 0.0f, radi2);
+					GLib::Point2D offset2 = { obj2.GetXPosition(), obj2.GetYPosition() };
+					Render(*sprite2, offset2, 0.0f, 0.0f);
 				}
 
 				

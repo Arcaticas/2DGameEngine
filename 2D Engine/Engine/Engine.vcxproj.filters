@@ -16,6 +16,12 @@
     <Filter Include="Header Files\GLib">
       <UniqueIdentifier>{955d47de-52ac-4e39-a43d-189b09c64f4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{2cd431d1-b494-49d8-b0a9-77ddd4033686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{ff65ef24-c2d2-4f12-bf3d-fce4538106a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h">
@@ -24,25 +30,25 @@
     <ClInclude Include="..\Libraries\GLib\GLib.h">
       <Filter>Header Files\GLib</Filter>
     </ClInclude>
-    <ClInclude Include="2DPhysicsObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Timing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="2DPhysicsObj.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="Physics.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2DPhysicsObj.cpp">
+    <ClCompile Include="TimingWin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Physics.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="TimingWin.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="2DPhysicsObj.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
