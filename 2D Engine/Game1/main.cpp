@@ -170,14 +170,14 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 				
 				if (sprite1)
 				{
-					GLib::Point2D offset1 = { obj1.GetXPosition(), obj1.GetYPosition() };
+					GLib::Point2D offset1 = { obj1.posAndVec.getXPosition(), obj1.posAndVec.getYPosition() };
 
 					Render(*sprite1, offset1, 0.0f, 0.0f);
 				}
 
 				if (sprite2)
 				{
-					GLib::Point2D offset2 = { obj2.GetXPosition(), obj2.GetYPosition() };
+					GLib::Point2D offset2 = { obj2.posAndVec.getXPosition(), obj2.posAndVec.getYPosition() };
 					Render(*sprite2, offset2, 0.0f, 0.0f);
 				}
 

@@ -30,8 +30,8 @@ namespace Physics
 	{
 		float xForces = 0;
 		float yForces = 0;
-		float preXVelocity = obj.GetXVelocity();
-		float preYVelocity = obj.GetYVelocity();
+		float preXVelocity = obj.posAndVec.getXVector();
+		float preYVelocity = obj.posAndVec.getYVector();
 
 		for (std::vector<Vector2>::iterator fo = forces.begin(); fo != forces.end(); ++fo)
 		{
@@ -42,11 +42,11 @@ namespace Physics
 		obj.SetXAcceleration(xForces / obj.GetMass());
 		obj.SetYAcceleration(yForces / obj.GetMass());
 
-		obj.SetXVelocity(preXVelocity + obj.GetXAcceleration() * dT);
-		obj.SetYVelocity(preYVelocity + obj.GetYAcceleration() * dT);
+		obj.posAndVec.setXVector(preXVelocity + obj.GetXAcceleration() * dT);
+		obj.posAndVec.setYVector(preYVelocity + obj.GetYAcceleration() * dT);
 
-		obj.SetXPosition(obj.GetXPosition() + ((preXVelocity + obj.GetXVelocity()) / 2) * dT);
-		obj.SetYPosition(obj.GetYPosition() + ((preYVelocity + obj.GetYVelocity()) / 2) * dT);
+		obj.posAndVec.setXPosition(obj.posAndVec.getXPosition() + ((preXVelocity + obj.posAndVec.getXVector()) / 2) * dT);
+		obj.posAndVec.setYPosition(obj.posAndVec.getYPosition() + ((preYVelocity + obj.posAndVec.getYVector()) / 2) * dT);
 
 	}
 }

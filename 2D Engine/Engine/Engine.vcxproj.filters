@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{ff65ef24-c2d2-4f12-bf3d-fce4538106a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SmartPointer">
+      <UniqueIdentifier>{c6961212-b850-4037-9610-75cf261d09f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SmartPointer">
+      <UniqueIdentifier>{d7cdd4c9-0e7c-4cf6-b9de-faf2cfc36e11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h">
@@ -39,6 +45,21 @@
     <ClInclude Include="Physics.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Point2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectOwner.h">
+      <Filter>Header Files\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectObserver.h">
+      <Filter>Header Files\SmartPointer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TimingWin.cpp">
@@ -49,6 +70,18 @@
     </ClCompile>
     <ClCompile Include="2DPhysicsObj.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectOwner.cpp">
+      <Filter>Source Files\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectObserver.cpp">
+      <Filter>Source Files\SmartPointer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
