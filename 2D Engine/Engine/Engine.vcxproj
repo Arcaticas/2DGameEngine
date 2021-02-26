@@ -142,6 +142,7 @@
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h" />
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
     <ClInclude Include="2DPhysicsObj.h" />
+    <ClInclude Include="Counters.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectObserver.h" />
     <ClInclude Include="GameObjectOwner.h" />

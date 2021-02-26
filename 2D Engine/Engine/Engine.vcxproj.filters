@@ -60,6 +60,9 @@
     <ClInclude Include="GameObjectObserver.h">
       <Filter>Header Files\SmartPointer</Filter>
     </ClInclude>
+    <ClInclude Include="Counters.h">
+      <Filter>Header Files\SmartPointer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TimingWin.cpp">

@@ -1,5 +1,5 @@
-#include "GameObject.h"
 #include "GameObjectOwner.h"
+#include "GameObjectObserver.h"
 
 
 
@@ -9,7 +9,14 @@ GameObjectOwner::GameObjectOwner(GameObject* i_ptr) :
 {
 }
 
-GameObjectOwner::GameObjectOwner(GameObjectOwner& i_copy)
+GameObjectOwner::GameObjectOwner(const GameObjectOwner& i_copy)
+{
+	m_ptr = i_copy.m_ptr;
+	count = i_copy.count;
+	(*count).m_Owners++;
+}
+
+GameObjectOwner::GameObjectOwner(const GameObjectObserver& i_copy)
 {
 	m_ptr = i_copy.m_ptr;
 	count = i_copy.count;
@@ -31,6 +38,12 @@ GameObjectOwner::~GameObjectOwner()
 GameObject* GameObjectOwner::operator->()
 {
 	return m_ptr;
+}
+
+GameObject& GameObjectOwner::operator*()
+{
+	assert(m_ptr);
+	return *m_ptr;
 }
 
 
