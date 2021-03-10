@@ -2,8 +2,6 @@
 #include <vector>
 #include <Windows.h>
 
-
-#include "2DPhysicsObj.h"
 #include "Physics.h"
 #include "Timing.h"
 
@@ -26,17 +24,37 @@ namespace Physics
 		return IsDebuggerPresent() ? (1.0f / 60.0f) : FrameTime;
 	}
 
-	void Update(TwoDPhysicsObj& obj, std::vector<Vector2>& forces, float dT)
+	void Update(TwoDPhysicsObj& obj, std::vector<Point2D>& forces, float dT)
 	{
 		float xForces = 0;
 		float yForces = 0;
 		float preXVelocity = obj.posAndVec.getXVector();
 		float preYVelocity = obj.posAndVec.getYVector();
 
-		for (std::vector<Vector2>::iterator fo = forces.begin(); fo != forces.end(); ++fo)
+		if (preXVelocity != 0 || preYVelocity != 0)
 		{
-			xForces += fo->x;
-			yForces += fo->y;
+			if (preXVelocity > 0)
+			{
+				xForces += -1 * obj.GetDragCoefficient() * preXVelocity * preXVelocity;
+			}
+			else
+			{
+				xForces += 1 * obj.GetDragCoefficient() * preXVelocity * preXVelocity;
+			}
+			if (preYVelocity > 0)
+			{
+				yForces += -1 * obj.GetDragCoefficient() * preYVelocity * preYVelocity;
+			}
+			else
+			{
+				yForces += 1 * obj.GetDragCoefficient() * preYVelocity * preYVelocity;
+			}
+		}
+		
+		for (std::vector<Point2D>::iterator fo = forces.begin(); fo != forces.end(); ++fo)
+		{
+			xForces += fo->getXPosition();
+			yForces += fo->getYPosition();
 		}
 
 		obj.SetXAcceleration(xForces / obj.GetMass());
@@ -47,6 +65,15 @@ namespace Physics
 
 		obj.posAndVec.setXPosition(obj.posAndVec.getXPosition() + ((preXVelocity + obj.posAndVec.getXVector()) / 2) * dT);
 		obj.posAndVec.setYPosition(obj.posAndVec.getYPosition() + ((preYVelocity + obj.posAndVec.getYVector()) / 2) * dT);
+
+		if (obj.posAndVec.getXVector() < .01f && obj.posAndVec.getXVector() > -.01f)
+		{
+			obj.posAndVec.setXVector(0);
+		}
+		if (obj.posAndVec.getYVector() < .01f && obj.posAndVec.getYVector() > -.01f)
+		{
+			obj.posAndVec.setYVector(0);
+		}
 
 	}
 }

@@ -28,6 +28,18 @@
     <Filter Include="Source Files\SmartPointer">
       <UniqueIdentifier>{d7cdd4c9-0e7c-4cf6-b9de-faf2cfc36e11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{c0812901-c92d-4833-b214-0e1328341cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{d7698e52-6d13-4a61-a671-fe0e132dd1f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer">
+      <UniqueIdentifier>{04c078a5-6808-4b84-8524-c8128de77d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer">
+      <UniqueIdentifier>{cb370375-fb6c-4431-b5b7-548b6db69deb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h">
@@ -36,20 +48,11 @@
     <ClInclude Include="..\Libraries\GLib\GLib.h">
       <Filter>Header Files\GLib</Filter>
     </ClInclude>
-    <ClInclude Include="Timing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="2DPhysicsObj.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Point2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point2D-inl.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectOwner.h">
       <Filter>Header Files\SmartPointer</Filter>
@@ -63,19 +66,34 @@
     <ClInclude Include="Counters.h">
       <Filter>Header Files\SmartPointer</Filter>
     </ClInclude>
+    <ClInclude Include="2DPhysicsObj-inl.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D-inl.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Timing.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable-inl.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TimingWin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="2DPhysicsObj.cpp">
       <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Point2D.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\SmartPointer</Filter>
@@ -85,6 +103,18 @@
     </ClCompile>
     <ClCompile Include="GameObjectObserver.cpp">
       <Filter>Source Files\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2D.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="TimingWin.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

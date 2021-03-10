@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h" />
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
+    <ClInclude Include="2DPhysicsObj-inl.h" />
     <ClInclude Include="2DPhysicsObj.h" />
     <ClInclude Include="Counters.h" />
     <ClInclude Include="GameObject.h" />
@@ -149,6 +154,9 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Point2D-inl.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="Renderable-inl.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Timing.h" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +166,8 @@
     <ClCompile Include="GameObjectOwner.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="TimingWin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

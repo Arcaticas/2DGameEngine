@@ -13,7 +13,7 @@ public:
 	GameObjectOwner CreateOwner();
 
 private:
-	GameObject* m_ptr;
-	Counters* count;
+	Physics::TwoDPhysicsObj* m_ptr;
+	Counters* m_count;
 
 };

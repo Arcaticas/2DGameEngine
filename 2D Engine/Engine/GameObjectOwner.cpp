@@ -3,44 +3,44 @@
 
 
 
-GameObjectOwner::GameObjectOwner(GameObject* i_ptr) :
-	m_ptr(i_ptr),
-	count(new Counters(1,0))
+GameObjectOwner::GameObjectOwner(Physics::TwoDPhysicsObj* i_ptr) :
+	m_count(new Counters(1,0))
 {
+	m_ptr = i_ptr;
 }
 
 GameObjectOwner::GameObjectOwner(const GameObjectOwner& i_copy)
 {
 	m_ptr = i_copy.m_ptr;
-	count = i_copy.count;
-	(*count).m_Owners++;
+	m_count = i_copy.m_count;
+	(*m_count).m_Owners++;
 }
 
 GameObjectOwner::GameObjectOwner(const GameObjectObserver& i_copy)
 {
 	m_ptr = i_copy.m_ptr;
-	count = i_copy.count;
-	(*count).m_Owners++;
+	m_count = i_copy.m_count;
+	(*m_count).m_Owners++;
 }
 
 GameObjectOwner::~GameObjectOwner()
 {
-	if (--((*count).m_Owners) == 0)
+	if (--((*m_count).m_Owners) == 0)
 	{
 		delete m_ptr;
-		if ((*count).m_Observers == 0)
+		if ((*m_count).m_Observers == 0)
 		{
-			delete count;
+			delete m_count;
 		}
 	}
 }
 
-GameObject* GameObjectOwner::operator->()
+Physics::TwoDPhysicsObj* GameObjectOwner::operator->()
 {
 	return m_ptr;
 }
 
-GameObject& GameObjectOwner::operator*()
+Physics::TwoDPhysicsObj& GameObjectOwner::operator*()
 {
 	assert(m_ptr);
 	return *m_ptr;

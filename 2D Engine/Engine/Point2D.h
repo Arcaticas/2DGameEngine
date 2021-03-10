@@ -17,18 +17,18 @@ public:
 	inline Point2D operator/=(const float);
 	inline Point2D operator-();
 	
-	void setXPosition(const float i) { _x = i; }
-	void setYPosition(const float i) { _y = i; }
-	void setXVector(const float i) { xVector = i; }
-	void setYVector(const float i) { yVector = i; }
+	void setXPosition(const float i) { m_x = i; }
+	void setYPosition(const float i) { m_y = i; }
+	void setXVector(const float i) { m_xVector = i; }
+	void setYVector(const float i) { m_yVector = i; }
 
-	float getXPosition() const { return _x; }
-	float getYPosition() const { return _y; }
-	float getXVector() const { return xVector; }
-	float getYVector() const { return yVector; }
+	float getXPosition() const { return m_x; }
+	float getYPosition() const { return m_y; }
+	float getXVector() const { return m_xVector; }
+	float getYVector() const { return m_yVector; }
 
 private:
-	float _x, _y, xVector, yVector;
+	float m_x, m_y, m_xVector, m_yVector;
 };
 
 inline bool operator==(const Point2D&, const Point2D&);

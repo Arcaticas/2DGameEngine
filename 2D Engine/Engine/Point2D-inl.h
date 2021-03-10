@@ -2,27 +2,27 @@
 
 inline Point2D Point2D::operator+=(const Point2D& p)
 {
-	return Point2D(_x + p.getXPosition(), _y + p.getYPosition());
+	return Point2D(m_x + p.getXPosition(), m_y + p.getYPosition());
 }
 
 inline Point2D Point2D::operator-=(const Point2D& p)
 {
-	return Point2D(_x - p.getXPosition(), _y - p.getYPosition());
+	return Point2D(m_x - p.getXPosition(), m_y - p.getYPosition());
 }
 
 inline Point2D Point2D::operator*=(const float i)
 {
-	return Point2D(_x * i, _y * i);
+	return Point2D(m_x * i, m_y * i);
 }
 
 inline Point2D Point2D::operator/=(const float i)
 {
-	return Point2D(_x / i, _y / i);
+	return Point2D(m_x / i, m_y / i);
 }
 
 inline Point2D Point2D::operator-()
 {
-	return Point2D(-_x, -_y);
+	return Point2D(-m_x, -m_y);
 }
 
 inline bool operator==(const Point2D& a, const Point2D& b)

@@ -4,26 +4,26 @@
 
 
 //Constructors
-Point2D::Point2D() 
+Point2D::Point2D() :
+	m_x(0),
+	m_y(0),
+	m_xVector(0),
+	m_yVector(0)
 {
-	_x = 0;
-	_y = 0;
-	xVector = 0; 
-	yVector = 0;
 }
 
-Point2D::Point2D(float x, float y) 
+Point2D::Point2D(float i_x, float i_y) :
+	m_x(i_x),
+	m_y(i_y),
+	m_xVector(0),
+	m_yVector(0)
 {
-	_x = x;
-	_y = y;
-	xVector = 0;
-	yVector = 0;
 }
 
-Point2D::Point2D(float x, float y, float xV, float yV)
+Point2D::Point2D(float i_x, float i_y, float i_dX, float i_dY) :
+	m_x(i_x),
+	m_y(i_y),
+	m_xVector(i_dX),
+	m_yVector(i_dY)
 {
-	_x = x;
-	_y = y;
-	xVector = xV;
-	yVector = yV;
 }

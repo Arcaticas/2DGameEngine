@@ -7,6 +7,7 @@
 
 #include "GLib.h"
 #include "Physics.h"
+#include "Renderer.h"
 #include "Timing.h"
 
 bool aDown = false;
@@ -119,15 +120,20 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 	if (bSuccess&&tSuccess)
 	{
 		GLib::SetKeyStateChangeCallback(TestKeyCallback);
+
+		std::vector<Point2D> forces1;
+		std::vector<Point2D> forces2;
+
+
+
+		GameObjectOwner ptr1 = GameObjectOwner(new Physics::TwoDPhysicsObj());
+		GameObjectObserver subPtr1 = GameObjectObserver(ptr1);
+		Renderer::Renderable rend1 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP1.dds"));
+
+		GameObjectOwner ptr2 = GameObjectOwner(new Physics::TwoDPhysicsObj(-200,-200));
+		GameObjectObserver subPtr2 = GameObjectObserver(ptr2);
+		Renderer::Renderable rend2 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP2.dds"));
 		
-		Physics::TwoDPhysicsObj obj1 = Physics::TwoDPhysicsObj();
-		Physics::TwoDPhysicsObj obj2 = Physics::TwoDPhysicsObj(-200,-200);
-
-		std::vector<Vector2> forces1;
-		std::vector<Vector2> forces2;
-
-		GLib::Sprite* sprite1 = CreateSprite("sprites\\PP1.dds");
-		GLib::Sprite* sprite2 = CreateSprite("sprites\\PP2.dds");
 
 		float dT;
 
@@ -143,7 +149,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (aDown)
 				{
-					forces1.push_back(Vector2(.001, .001));
+					forces1.push_back(Point2D(.001f, .001f));
 				}
 				else
 				{
@@ -152,46 +158,29 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (dDown)
 				{
-					forces2.push_back(Vector2(-.001, -.001));
+					forces2.push_back(Point2D(-.001f, -.001f));
 				}
 				else
 				{
 					forces2.clear();
 				}
 
-
-				Physics::Update(obj1, forces1, dT);
-				Physics::Update(obj2, forces2, dT);
+				//Physics::Update((*ptr1.operator->()), forces1, dT);
+				Physics::Update((*ptr2.operator->()), forces2, dT);
 
 
 				//Rendering
 				GLib::BeginRendering(DirectX::Colors::Red);
 				GLib::Sprites::BeginRendering();
 				
-				if (sprite1)
-				{
-					GLib::Point2D offset1 = { obj1.posAndVec.getXPosition(), obj1.posAndVec.getYPosition() };
-
-					Render(*sprite1, offset1, 0.0f, 0.0f);
-				}
-
-				if (sprite2)
-				{
-					GLib::Point2D offset2 = { obj2.posAndVec.getXPosition(), obj2.posAndVec.getYPosition() };
-					Render(*sprite2, offset2, 0.0f, 0.0f);
-				}
-
-				
+				Renderer::Draw(rend1);
+				Renderer::Draw(rend2);
 
 				GLib::Sprites::EndRendering();
 				GLib::EndRendering();
 			}
 		} while (bQuit == false);
 
-		if (sprite1)
-			Release(sprite1);
-		if (sprite2)
-			Release(sprite2);
 
 
 		GLib::Shutdown();

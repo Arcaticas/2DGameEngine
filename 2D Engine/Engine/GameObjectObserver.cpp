@@ -4,22 +4,22 @@
 GameObjectObserver::GameObjectObserver(const GameObjectOwner& i_owner)
 {
 	m_ptr = i_owner.m_ptr;
-	count = i_owner.count;
-	(*count).m_Observers++;
+	m_count = i_owner.m_count;
+	(*m_count).m_Observers++;
 }
 
 GameObjectObserver::~GameObjectObserver()
 {
-	(*count).m_Observers--;
-	if ((*count).m_Observers == 0 && (*count).m_Owners == 0)
+	(*m_count).m_Observers--;
+	if ((*m_count).m_Observers == 0 && (*m_count).m_Owners == 0)
 	{
-		delete count;
+		delete m_count;
 	}
 }
 
 GameObjectOwner GameObjectObserver::CreateOwner()
 {
-	if ((*count).m_Owners > 0)
+	if ((*m_count).m_Owners > 0)
 	{
 		return GameObjectOwner(*this);
 	}
