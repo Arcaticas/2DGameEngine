@@ -126,12 +126,12 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 
 
-		GameObjectOwner ptr1 = GameObjectOwner(new Physics::TwoDPhysicsObj());
-		GameObjectObserver subPtr1 = GameObjectObserver(ptr1);
+		GameObjectOwner<Physics::TwoDPhysicsObj> ptr1 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj());
+		GameObjectObserver<Physics::TwoDPhysicsObj> subPtr1 = GameObjectObserver<Physics::TwoDPhysicsObj>(ptr1);
 		Renderer::Renderable rend1 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP1.dds"));
 
-		GameObjectOwner ptr2 = GameObjectOwner(new Physics::TwoDPhysicsObj(-200,-200));
-		GameObjectObserver subPtr2 = GameObjectObserver(ptr2);
+		GameObjectOwner<Physics::TwoDPhysicsObj> ptr2 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj(-200,-200));
+		GameObjectObserver<Physics::TwoDPhysicsObj> subPtr2 = GameObjectObserver<Physics::TwoDPhysicsObj>(ptr2);
 		Renderer::Renderable rend2 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP2.dds"));
 		
 

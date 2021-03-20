@@ -87,6 +87,9 @@
     <ClInclude Include="Renderable-inl.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="JSON.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Physics.cpp">
@@ -96,12 +99,6 @@
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectOwner.cpp">
-      <Filter>Source Files\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectObserver.cpp">
       <Filter>Source Files\SmartPointer</Filter>
     </ClCompile>
     <ClCompile Include="Point2D.cpp">
@@ -115,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="JSON.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

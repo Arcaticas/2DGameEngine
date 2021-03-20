@@ -11,12 +11,12 @@ namespace Renderer
 	class Renderable
 	{
 	public:
-		Renderable(GameObjectObserver& owner, GLib::Sprite* sprite);
+		Renderable(GameObjectObserver<Physics::TwoDPhysicsObj>& i_owner, GLib::Sprite* i_sprite);
 
 		Point2D GetLocationFromParent();
 		inline GLib::Sprite* GetSprite();
 	private:
-		GameObjectObserver m_owner;
+		GameObjectObserver<Physics::TwoDPhysicsObj> m_owner;
 		GLib::Sprite* m_sprite;
 	};
 }
