@@ -163,8 +163,6 @@
   <ItemGroup>
     <ClCompile Include="2DPhysicsObj.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameObjectObserver.cpp" />
-    <ClCompile Include="GameObjectOwner.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Point2D.cpp" />

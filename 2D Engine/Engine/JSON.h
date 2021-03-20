@@ -7,6 +7,6 @@ namespace Loader
 {
 	std::vector<uint8_t> LoadFile(const std::string& fileName);
 
-	GameObjectOwner CreateGameObjectFromJSON(nlohmann::json& i_JSONdata);
-	GameObjectOwner CreateGameObject(const std::string& i_fileName);
+	template <typename T> GameObjectOwner<T> CreateGameObjectFromJSON(nlohmann::json& i_JSONdata);
+	template <typename T> GameObjectOwner<T> CreateGameObject(const std::string& i_fileName);
 }

@@ -3,23 +3,56 @@
 #include "Counters.h"
 #include "2DPhysicsObj.h"
 
-class GameObjectObserver;
-
+template <typename T>
 class GameObjectOwner
 {
+	template <typename U>
 	friend class GameObjectObserver;
 public:
-	GameObjectOwner(Physics::TwoDPhysicsObj* i_ptr);
-	GameObjectOwner(const GameObjectOwner& i_copy);
-	GameObjectOwner(const GameObjectObserver& i_copy);
+	GameObjectOwner(T* i_ptr) :
+		m_count(new Counters(1, 0))
+	{
+		m_ptr = i_ptr;
+	}
 
-	~GameObjectOwner();
+	GameObjectOwner(const GameObjectOwner<T>& i_copy)
+	{
+		m_ptr = i_copy.m_ptr;
+		m_count = i_copy.m_count;
+		(*m_count).m_Owners++;
+	}
 
-	Physics::TwoDPhysicsObj* operator->();
-	Physics::TwoDPhysicsObj& operator*();
+	template <typename U>
+	GameObjectOwner(const GameObjectObserver<U>& i_copy)
+	{
+		m_ptr = i_copy.m_ptr;
+		m_count = i_copy.m_count;
+		(*m_count).m_Owners++;
+	}
+
+	~GameObjectOwner()
+	{
+		if (--((*m_count).m_Owners) == 0)
+		{
+			delete m_ptr;
+			if ((*m_count).m_Observers == 0)
+			{
+				delete m_count;
+			}
+		}
+	}
+
+	T* operator->()
+	{
+		return m_ptr;
+	}
+	T& operator*()
+	{
+		assert(m_ptr);
+		return *m_ptr;
+	}
 
 private:
-	Physics::TwoDPhysicsObj* m_ptr;
+	T* m_ptr;
 	Counters* m_count;
 };
-

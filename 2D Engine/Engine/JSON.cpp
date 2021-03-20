@@ -39,12 +39,14 @@ namespace Loader {
 		return Contents;
 	}
 
-	GameObjectOwner CreateGameObjectFromJSON(nlohmann::json& i_JSONdata)
+	template <typename T>
+	GameObjectOwner<T> CreateGameObjectFromJSON(nlohmann::json& i_JSONdata)
 	{
-		return GameObjectOwner();
+		return GameObjectOwner<T>();
 	}
 
-	GameObjectOwner CreateGameObject(const std::string& i_fileName)
+	template <typename T>
+	GameObjectOwner<T> CreateGameObject(const std::string& i_fileName)
 	{
 		std::vector<uint8_t> Contents = LoadFile(i_fileName);
 
@@ -53,7 +55,7 @@ namespace Loader {
 
 		}
 
-		return GameObjectOwner();
+		return GameObjectOwner<T>();
 	}
 
 

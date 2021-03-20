@@ -101,12 +101,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\SmartPointer</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectOwner.cpp">
-      <Filter>Source Files\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectObserver.cpp">
-      <Filter>Source Files\SmartPointer</Filter>
-    </ClCompile>
     <ClCompile Include="Point2D.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
