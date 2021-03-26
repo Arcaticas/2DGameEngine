@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Renderer">
       <UniqueIdentifier>{cb370375-fb6c-4431-b5b7-548b6db69deb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility\Matrixes">
+      <UniqueIdentifier>{5bcc44a7-4527-48d8-bed8-0fcc38673b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Matrixes">
+      <UniqueIdentifier>{90f2eebb-cb2a-47bc-851b-41bb8bb6e8da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="JSON.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Header Files\Utility\Matrixes</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4-inl.h">
+      <Filter>Header Files\Utility\Matrixes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Physics.cpp">
@@ -115,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="JSON.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Source Files\Utility\Matrixes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

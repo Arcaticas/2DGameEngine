@@ -159,6 +159,8 @@
     <ClInclude Include="Renderable-inl.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Timing.h" />
+    <ClInclude Include="Vector4-inl.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2DPhysicsObj.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="TimingWin.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

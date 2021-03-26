@@ -17,10 +17,10 @@ public:
 	inline Point2D operator/=(const float);
 	inline Point2D operator-();
 	
-	void setXPosition(const float i) { m_x = i; }
-	void setYPosition(const float i) { m_y = i; }
-	void setXVector(const float i) { m_xVector = i; }
-	void setYVector(const float i) { m_yVector = i; }
+	void setXPosition(const float i_x) { m_x = i_x; }
+	void setYPosition(const float i_y) { m_y = i_y; }
+	void setXVector(const float i_xV) { m_xVector = i_xV; }
+	void setYVector(const float i_yV) { m_yVector = i_yV; }
 
 	float getXPosition() const { return m_x; }
 	float getYPosition() const { return m_y; }
