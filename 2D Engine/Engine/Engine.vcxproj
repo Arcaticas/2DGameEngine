@@ -151,6 +151,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectObserver.h" />
     <ClInclude Include="GameObjectOwner.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Matrix3x3.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="JSON.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Point2D-inl.h" />
@@ -166,6 +169,9 @@
     <ClCompile Include="2DPhysicsObj.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="JSON.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Matrix3x3.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Renderable.cpp" />

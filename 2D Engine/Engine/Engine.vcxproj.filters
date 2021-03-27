@@ -102,6 +102,15 @@
     <ClInclude Include="Vector4-inl.h">
       <Filter>Header Files\Utility\Matrixes</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>Header Files\Utility\Matrixes</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files\Utility\Matrixes</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix3x3.h">
+      <Filter>Header Files\Utility\Matrixes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Physics.cpp">
@@ -129,6 +138,15 @@
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Vector4.cpp">
+      <Filter>Source Files\Utility\Matrixes</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Source Files\Utility\Matrixes</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files\Utility\Matrixes</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix3x3.cpp">
       <Filter>Source Files\Utility\Matrixes</Filter>
     </ClCompile>
   </ItemGroup>
