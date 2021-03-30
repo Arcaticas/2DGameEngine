@@ -42,6 +42,74 @@ namespace Loader {
 	template <typename T>
 	GameObjectOwner<T> CreateGameObjectFromJSON(nlohmann::json& i_JSONdata)
 	{
+		if (i_JSONdata.contains("inital position"))
+		{
+			nlohmann::json Position = i_JSONdata["inital position"];
+			assert(Position.is_array());
+			assert(Position.size() == 2);
+			assert(Position[0].is_number_float() && Position[1].is_number_float());
+
+			GameObjectOwner<Physics::TwoDPhysicsObj> NewObj = Physics::CreatePhysicsObject(Position[0],Position[1]);
+
+			if (i_JSONdata.contains("components"))
+			{
+				assert(i_JSONdata["components"].is_object());
+
+				for (nlohmann::json::iterator it = i_JSONdata["components"].begin(); it != i_JSONdata["components"].end(); ++it)
+				{
+					
+
+					if (it.key() == "TwoDPhysicsObj")
+					{
+						float xAccel = 0;
+						float yAccel = 0;
+						float mass = 1;
+						float drag = 1;
+						nlohmann::json Physics = it.value();
+
+						if (Physics.contains("acceleration"))
+						{
+							nlohmann::json Acceleration = Physics[0];
+							assert(Acceleration.is_array());
+							assert(Acceleration.size() == 2);
+							assert(Acceleration[0].is_number_float() && Acceleration[1].is_number_float());
+							xAccel = Acceleration[0];
+							yAccel = Acceleration[1];
+						}
+
+						if (Physics.contains("mass"))
+						{
+							nlohmann::json Mass = Physics[1];
+							assert(Mass.is_number_float());
+							mass = Mass.value();
+						}
+
+						if (Physics.contains("drag"))
+						{
+							nlohmann::json Drag = Physics[2];
+							assert(Drag.is_number_float());
+							drag = Drag.value();
+						}
+						NewObj->SetXAcceleration(xAccel);
+						NewObj->SetYAcceleration(yAccel);
+						NewObj->SetMass(mass);
+						NewObj->SetDrag(drag);
+					}
+
+					if (it.key() == "Renderable")
+					{
+						nlohmann::json Render = it.value();
+
+						if (Render.contains("sprite"))
+						{
+							assert(Render[0].is_string());
+
+						}
+					}
+				}
+
+			}
+		}
 		return GameObjectOwner<T>();
 	}
 

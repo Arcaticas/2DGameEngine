@@ -1,7 +1,5 @@
 #pragma once
-#include "Point2D.h"
 #include "GLib.h"
-#include "GameObjectOwner.h"
 #include "GameObjectObserver.h"
 #include "2DPhysicsObj.h"
 

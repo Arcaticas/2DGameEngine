@@ -108,7 +108,9 @@ namespace Matrix
 			return r3c4;
 		if (i_row == 3 && i_col == 3)
 			return r4c4;
+		return 0;
 	}
+
 	void Matrix4x4::SetValue(int i_row, int i_col, float i_value)
 	{
 		if ((i_col > 3 || i_col < 0) || (i_row > 3 || i_row < 0))
@@ -202,8 +204,9 @@ namespace Matrix
 			this->Get4x4CofactorDeterminate(1, 0), this->Get4x4CofactorDeterminate(1, 1), this->Get4x4CofactorDeterminate(1, 2), this->Get4x4CofactorDeterminate(1, 3),
 			this->Get4x4CofactorDeterminate(2, 0), this->Get4x4CofactorDeterminate(2, 1), this->Get4x4CofactorDeterminate(2, 2), this->Get4x4CofactorDeterminate(2, 3),
 			this->Get4x4CofactorDeterminate(3, 0), this->Get4x4CofactorDeterminate(3, 1), this->Get4x4CofactorDeterminate(3, 2), this->Get4x4CofactorDeterminate(3, 3)
-		)
-		return adjunct/determinant;
+		);
+
+		return adjunct /= determinant;
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <assert.h>
 #include "Counters.h"
-#include "2DPhysicsObj.h"
+
 
 template <typename T>
 class GameObjectOwner

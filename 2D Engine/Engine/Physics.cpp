@@ -24,6 +24,14 @@ namespace Physics
 		return IsDebuggerPresent() ? (1.0f / 60.0f) : FrameTime;
 	}
 
+	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(float i_xPos,float i_yPos)
+	{
+		TwoDPhysicsObj temp = TwoDPhysicsObj(i_xPos, i_yPos);
+		AllPhysicsObjects.push_back(temp);
+		return GameObjectOwner<TwoDPhysicsObj>(&temp);
+	}
+
+
 	void Update(TwoDPhysicsObj& obj, std::vector<Point2D>& forces, float dT)
 	{
 		float xForces = 0;

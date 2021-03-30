@@ -1,6 +1,7 @@
 #pragma once
 #include <json.hpp>
-#include "GameObjectOwner.h"
+#include "Physics.h"
+
 
 
 namespace Loader
