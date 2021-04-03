@@ -12,8 +12,11 @@ namespace Renderer
 
 	void CreateRenderableObj(GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner , GLib::Sprite* i_sprite)
 	{
-		//Renderable rendTemp = Renderable(i_owner, i_sprite);
+		Renderable rendTemp = Renderable(i_owner, i_sprite);
+		AllRenderableObjects.push_back(rendTemp);
 	}
+
+
 
 
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include "Matrix3x3.h"
 #include "Vector4.h"
 
@@ -17,10 +18,14 @@ namespace Matrix
 		Matrix4x4 operator+=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator-=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator*=(const float i_scalar);
-		Vector4 operator*=(const Vector4&);
+		Vector4 operator*=(const Vector4& i_v4);
+		Matrix4x4 operator*=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator/=(const float i_scalar);
 
-		
+		Matrix4x4 CreateRotationX(float i_x);
+		Matrix4x4 CreateRotationY(float i_y);
+		Matrix4x4 CreateRotationZ(float i_z);
+		Matrix4x4 CreateTranslation(float i_x, float i_y, float i_z);
 
 		float GetValue(int i_row, int i_col);
 		void SetValue(int i_row, int i_col, float i_value);

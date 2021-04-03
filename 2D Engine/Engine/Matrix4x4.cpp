@@ -58,6 +58,15 @@ namespace Matrix
 		);
 	}
 
+	Matrix4x4 Matrix4x4::operator*=(const Matrix4x4& i_matrix)
+	{
+		return Matrix4x4(this->GetValue(0, 0) * i_matrix.r1c1 + this->GetValue(0, 1) * i_matrix.r2c1 + this->GetValue(0, 2) * i_matrix.r3c1 + this->GetValue(0, 3) * i_matrix.r4c1, this->GetValue(0, 0) * i_matrix.r1c2 + this->GetValue(0, 1) * i_matrix.r2c2 + this->GetValue(0, 2) * i_matrix.r3c2 + this->GetValue(0, 3) * i_matrix.r4c2, this->GetValue(0, 0) * i_matrix.r1c3 + this->GetValue(0, 1) * i_matrix.r2c3 + this->GetValue(0, 2) * i_matrix.r3c3 + this->GetValue(0, 3) * i_matrix.r4c3, this->GetValue(0, 0) * i_matrix.r1c4 + this->GetValue(0, 1) * i_matrix.r2c4 + this->GetValue(0, 2) * i_matrix.r3c4 + this->GetValue(0, 3) * i_matrix.r4c4,
+						 this->GetValue(1, 0) * i_matrix.r1c1 + this->GetValue(1, 1) * i_matrix.r2c1 + this->GetValue(1, 2) * i_matrix.r3c1 + this->GetValue(1, 3) * i_matrix.r4c1, this->GetValue(1, 0) * i_matrix.r1c2 + this->GetValue(1, 1) * i_matrix.r2c2 + this->GetValue(1, 2) * i_matrix.r3c2 + this->GetValue(1, 3) * i_matrix.r4c2, this->GetValue(1, 0) * i_matrix.r1c3 + this->GetValue(1, 1) * i_matrix.r2c3 + this->GetValue(1, 2) * i_matrix.r3c3 + this->GetValue(1, 3) * i_matrix.r4c3, this->GetValue(1, 0) * i_matrix.r1c4 + this->GetValue(1, 1) * i_matrix.r2c4 + this->GetValue(1, 2) * i_matrix.r3c4 + this->GetValue(1, 3) * i_matrix.r4c4,
+						 this->GetValue(2, 0) * i_matrix.r1c1 + this->GetValue(2, 1) * i_matrix.r2c1 + this->GetValue(2, 2) * i_matrix.r3c1 + this->GetValue(2, 3) * i_matrix.r4c1, this->GetValue(2, 0) * i_matrix.r1c2 + this->GetValue(2, 1) * i_matrix.r2c2 + this->GetValue(2, 2) * i_matrix.r3c2 + this->GetValue(2, 3) * i_matrix.r4c2, this->GetValue(2, 0) * i_matrix.r1c3 + this->GetValue(2, 1) * i_matrix.r2c3 + this->GetValue(2, 2) * i_matrix.r3c3 + this->GetValue(2, 3) * i_matrix.r4c3, this->GetValue(2, 0) * i_matrix.r1c4 + this->GetValue(2, 1) * i_matrix.r2c4 + this->GetValue(2, 2) * i_matrix.r3c4 + this->GetValue(2, 3) * i_matrix.r4c4,
+						 this->GetValue(3, 0) * i_matrix.r1c1 + this->GetValue(3, 1) * i_matrix.r2c1 + this->GetValue(3, 2) * i_matrix.r3c1 + this->GetValue(3, 3) * i_matrix.r4c1, this->GetValue(3, 0) * i_matrix.r1c2 + this->GetValue(3, 1) * i_matrix.r2c2 + this->GetValue(3, 2) * i_matrix.r3c2 + this->GetValue(3, 3) * i_matrix.r4c2, this->GetValue(3, 0) * i_matrix.r1c3 + this->GetValue(3, 1) * i_matrix.r2c3 + this->GetValue(3, 2) * i_matrix.r3c3 + this->GetValue(3, 3) * i_matrix.r4c3, this->GetValue(3, 0) * i_matrix.r1c4 + this->GetValue(3, 1) * i_matrix.r2c4 + this->GetValue(3, 2) * i_matrix.r3c4 + this->GetValue(3, 3) * i_matrix.r4c4
+		);
+	}
+
 	Matrix4x4 Matrix4x4::operator/=(const float i_scalar)
 	{
 		return Matrix4x4(
@@ -66,6 +75,38 @@ namespace Matrix
 			this->GetValue(2, 0) / i_scalar, this->GetValue(2, 1) / i_scalar, this->GetValue(2, 2) / i_scalar, this->GetValue(2, 3) / i_scalar,
 			this->GetValue(3, 0) / i_scalar, this->GetValue(3, 1) / i_scalar, this->GetValue(3, 2) / i_scalar, this->GetValue(3, 3) / i_scalar
 		);
+	}
+
+	Matrix4x4 Matrix4x4::CreateRotationX(float i_x)
+	{
+		return Matrix4x4(1, 0,		  0,		 0,
+						 0, cos(i_x), -sin(i_x), 0,
+						 0, sin(i_x), cos(i_x),  0,
+						 0, 0,		  0,		 0);
+	}
+
+	Matrix4x4 Matrix4x4::CreateRotationY(float i_y)
+	{
+		return Matrix4x4(cos(i_y),  0, sin(i_y), 0,
+						 0,		    1, 0,		 0,
+						 -sin(i_y), 0, cos(i_y), 0,
+						 0,			0, 0,		 0);
+	}
+
+	Matrix4x4 Matrix4x4::CreateRotationZ(float i_z)
+	{
+		return Matrix4x4(cos(i_z),  -sin(i_z), 0, 0,
+						 sin(i_z),	 cos(i_z), 0, 0,
+						 0,			0,		   1, 0,
+						 0,			0,		   0, 0);
+	}
+
+	Matrix4x4 Matrix4x4::CreateTranslation(float i_x, float i_y, float i_z)
+	{
+		return Matrix4x4(1,0,0,i_x,
+						 0,1,0,i_y,
+						 0,0,1,i_z,
+						 0,0,0,1);
 	}
 
 	float Matrix4x4::GetValue(int i_row, int i_col)

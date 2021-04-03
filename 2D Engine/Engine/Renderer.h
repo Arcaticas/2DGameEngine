@@ -5,7 +5,7 @@
 
 namespace Renderer
 {
-	static std::vector<Renderable> AllRenderablesObjects;
+	static std::vector<Renderable> AllRenderableObjects;
 
 	void Draw(Renderable& i_renderable);
 	void CreateRenderableObj(GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner, GLib::Sprite* i_sprite);

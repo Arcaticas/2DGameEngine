@@ -15,7 +15,7 @@ namespace Loader {
 
 			if (fopenError == 0)
 			{
-				assert(pFile == nullptr);
+				assert(pFile != 0);
 
 				int fileIOError = fseek(pFile, 0, SEEK_END);
 				assert(fileIOError == 0);

@@ -29,6 +29,7 @@ namespace Physics {
 		inline void SetDragCoefficient(float i_fluidDensity, float i_fluidDrag, float i_size);
 
 	private:
+		float m_rotationZ = 0;
 		float m_xAcceleration;
 		float m_yAcceleration;
 		float m_mass;

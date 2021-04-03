@@ -147,7 +147,6 @@
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
     <ClInclude Include="2DPhysicsObj-inl.h" />
     <ClInclude Include="2DPhysicsObj.h" />
-    <ClInclude Include="AABB.h" />
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Counters.h" />

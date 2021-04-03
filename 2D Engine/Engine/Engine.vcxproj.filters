@@ -114,9 +114,6 @@
     <ClInclude Include="Matrix3x3.h">
       <Filter>Header Files\Utility\Matrixes</Filter>
     </ClInclude>
-    <ClInclude Include="AABB.h">
-      <Filter>Header Files\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Collidable.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>

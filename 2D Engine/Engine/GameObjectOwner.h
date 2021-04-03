@@ -9,20 +9,19 @@ class GameObjectOwner
 	template <typename T>
 	friend class GameObjectObserver;
 public:
-	template <typename T>
+	
 	GameObjectOwner() :
 		m_ptr(nullptr),
 		m_count(new Counters(0, 0))
 	{	
 	}
 
-	template <typename T>
 	GameObjectOwner(T* i_ptr) :
 		m_count(new Counters(1, 0))
 	{
 		m_ptr = i_ptr;
 	}
-	template <typename T>
+	
 	GameObjectOwner(const GameObjectOwner<T>& i_copy)
 	{
 		m_ptr = i_copy.m_ptr;
@@ -30,7 +29,7 @@ public:
 		(*m_count).m_Owners++;
 	}
 
-	template <typename T>
+	
 	GameObjectOwner(const GameObjectObserver<T>& i_copy)
 	{
 		m_ptr = i_copy.m_ptr;

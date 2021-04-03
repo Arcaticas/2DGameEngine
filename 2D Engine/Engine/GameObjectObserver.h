@@ -9,7 +9,7 @@ class GameObjectObserver
 public:
 
 
-	template <typename T>
+	
 	GameObjectObserver(const GameObjectOwner<T>& i_owner)
 	{
 		m_ptr = i_owner.m_ptr;
@@ -26,7 +26,7 @@ public:
 		}
 	}
 
-	template <typename T>
+	
 	GameObjectOwner<T> CreateOwner()
 	{
 		if ((*m_count).m_Owners > 0)
