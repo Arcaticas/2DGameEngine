@@ -147,6 +147,9 @@
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
     <ClInclude Include="2DPhysicsObj-inl.h" />
     <ClInclude Include="2DPhysicsObj.h" />
+    <ClInclude Include="AABB.h" />
+    <ClInclude Include="Collidable.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Counters.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectObserver.h" />
@@ -167,7 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2DPhysicsObj.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />

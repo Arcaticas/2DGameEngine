@@ -93,7 +93,7 @@ namespace Loader {
 						NewObj->SetXAcceleration(xAccel);
 						NewObj->SetYAcceleration(yAccel);
 						NewObj->SetMass(mass);
-						NewObj->SetDrag(drag);
+						NewObj->SetDragCoefficient(drag);
 					}
 
 					if (it.key() == "Renderable")

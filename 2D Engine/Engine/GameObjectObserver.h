@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObjectOwner.h"
 
-template <typename U>
+template <typename T>
 class GameObjectObserver
 {
 	template <typename T>
 	friend class GameObjectOwner;
 public:
+
+
 	template <typename T>
 	GameObjectObserver(const GameObjectOwner<T>& i_owner)
 	{
@@ -24,18 +26,18 @@ public:
 		}
 	}
 
-	template <typename U>
-	GameObjectOwner<U> CreateOwner()
+	template <typename T>
+	GameObjectOwner<T> CreateOwner()
 	{
 		if ((*m_count).m_Owners > 0)
 		{
-			return GameObjectOwner<U>(*this);
+			return GameObjectOwner<T>(*this);
 		}
-		return nullptr;
+		return GameObjectOwner<T>();
 	}
 
 private:
-	U* m_ptr;
+	T* m_ptr;
 	Counters* m_count;
 
 };

@@ -128,11 +128,11 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 		GameObjectOwner<Physics::TwoDPhysicsObj> ptr1 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj());
 		GameObjectObserver<Physics::TwoDPhysicsObj> subPtr1 = GameObjectObserver<Physics::TwoDPhysicsObj>(ptr1);
-		Renderer::Renderable rend1 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP1.dds"));
+		//Renderer::Renderable rend1 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP1.dds"));
 
-		GameObjectOwner<Physics::TwoDPhysicsObj> ptr2 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj(-200,-200));
+		GameObjectOwner<Physics::TwoDPhysicsObj> ptr2 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj(-2000,-2000));
 		GameObjectObserver<Physics::TwoDPhysicsObj> subPtr2 = GameObjectObserver<Physics::TwoDPhysicsObj>(ptr2);
-		Renderer::Renderable rend2 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP2.dds"));
+		//Renderer::Renderable rend2 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP2.dds"));
 		
 
 		float dT;
@@ -166,15 +166,15 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 				}
 
 				//Physics::Update((*ptr1.operator->()), forces1, dT);
-				Physics::Update((*ptr2.operator->()), forces2, dT);
+				Physics::Update((*ptr2), forces2, dT);
 
 
 				//Rendering
 				GLib::BeginRendering(DirectX::Colors::Red);
 				GLib::Sprites::BeginRendering();
 				
-				Renderer::Draw(rend1);
-				Renderer::Draw(rend2);
+				//Renderer::Draw(rend1);
+				//Renderer::Draw(rend2);
 
 				GLib::Sprites::EndRendering();
 				GLib::EndRendering();

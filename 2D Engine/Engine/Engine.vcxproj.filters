@@ -25,9 +25,6 @@
     <Filter Include="Header Files\SmartPointer">
       <UniqueIdentifier>{c6961212-b850-4037-9610-75cf261d09f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SmartPointer">
-      <UniqueIdentifier>{d7cdd4c9-0e7c-4cf6-b9de-faf2cfc36e11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Utility">
       <UniqueIdentifier>{c0812901-c92d-4833-b214-0e1328341cbf}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,12 @@
     </Filter>
     <Filter Include="Source Files\Utility\Matrixes">
       <UniqueIdentifier>{90f2eebb-cb2a-47bc-851b-41bb8bb6e8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Collision">
+      <UniqueIdentifier>{6a17aaa1-69d2-4a89-89a0-67b6a4fda3c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{4922295f-a0fb-4c4d-b880-2aac5bdd352b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +114,15 @@
     <ClInclude Include="Matrix3x3.h">
       <Filter>Header Files\Utility\Matrixes</Filter>
     </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collidable.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Physics.cpp">
@@ -118,9 +130,6 @@
     </ClCompile>
     <ClCompile Include="2DPhysicsObj.cpp">
       <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\SmartPointer</Filter>
     </ClCompile>
     <ClCompile Include="Point2D.cpp">
       <Filter>Source Files\Utility</Filter>
