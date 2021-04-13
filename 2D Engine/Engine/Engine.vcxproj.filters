@@ -155,5 +155,11 @@
     <ClCompile Include="Matrix3x3.cpp">
       <Filter>Source Files\Utility\Matrixes</Filter>
     </ClCompile>
+    <ClCompile Include="Collidable.cpp">
+      <Filter>Source Files\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -169,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2DPhysicsObj.cpp" />
+    <ClCompile Include="Collidable.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />

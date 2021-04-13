@@ -16,12 +16,13 @@ namespace Physics {
 		TwoDPhysicsObj(float i_xP, float i_yP, float i_mass, float i_dragCoef);
 		TwoDPhysicsObj(float i_xP, float i_yP, float i_xV, float i_yV, float i_mass, float i_dragCoef);
 
+		float GetZRotation() { return m_rotationZ; }
 		float GetXAcceleration() { return m_xAcceleration; }
 		float GetYAcceleration() { return m_yAcceleration; }
 		float GetMass() { return m_mass; }
 		float GetDragCoefficient() { return m_dragCoef; }
 
-		
+		void SetZRotation(float i_z) { m_rotationZ = i_z; }
 		void SetXAcceleration(float i_x) { m_xAcceleration = i_x; }
 		void SetYAcceleration(float i_y) { m_yAcceleration = i_y; }
 		void SetMass(float i_mass) { m_mass = i_mass; }
