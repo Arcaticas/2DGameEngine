@@ -112,12 +112,12 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 
 void rotateSprite(float& rad)
 {
-	rad = rad + (3.14 / 18);
+	rad = rad + (3.14f / 18);
 }
 
-int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
+int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
-	bool bSuccess = Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 800, 600, true);
+	bool bSuccess = Initialize(hInstance, nShowCmd, "GLibTest", -1, 800, 600, true);
 
 	if (bSuccess)
 	{
