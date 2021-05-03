@@ -112,7 +112,7 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 }
 
 
-int WINAPI wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
+int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
 {
 	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
@@ -165,8 +165,8 @@ int WINAPI wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstan
 					forces2.clear();
 				}
 
-				//Physics::Update((*ptr1.operator->()), forces1, dT);
-				Physics::Update((*ptr2.operator->()), forces2, dT);
+				Physics::Update((*ptr1.operator->()), forces1, dT);
+				Physics::Update((*ptr2), forces2, dT);
 
 
 				//Rendering
