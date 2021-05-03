@@ -111,7 +111,7 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 }
 
 
-int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
+int WINAPI wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
 {
 	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
@@ -143,7 +143,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (aDown)
 				{
-					forces1.push_back(Vector2(.001, .001));
+					forces1.push_back(Vector2(.001f, .001f));
 				}
 				else
 				{
@@ -152,7 +152,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 				if (dDown)
 				{
-					forces2.push_back(Vector2(-.001, -.001));
+					forces2.push_back(Vector2(-.001f, -.001f));
 				}
 				else
 				{
