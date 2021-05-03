@@ -2,6 +2,14 @@
 
 namespace Matrix
 {
+	inline bool Vector4::operator==(const Vector4& i_vector)
+	{
+		if (this->GetX() == i_vector.GetX() && this->GetY() == i_vector.GetY() && this->GetZ() == i_vector.GetZ() && this->GetW() == i_vector.GetW())
+			return true;
+		else
+			return false;
+	}
+
 	inline Vector4 Vector4::operator+=(const Vector4& i_vector)
 	{
 		return Vector4(m_x + i_vector.GetX(), m_y + i_vector.GetY(), m_z + i_vector.GetZ(), m_w + i_vector.GetW());
