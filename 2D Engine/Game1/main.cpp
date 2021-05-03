@@ -112,7 +112,7 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 }
 
 
-int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
+int WINAPI wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
 {
 	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
@@ -132,7 +132,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 
 		GameObjectOwner<Physics::TwoDPhysicsObj> ptr2 = GameObjectOwner<Physics::TwoDPhysicsObj>(new Physics::TwoDPhysicsObj(-200,-200));
 		GameObjectObserver<Physics::TwoDPhysicsObj> subPtr2 = GameObjectObserver<Physics::TwoDPhysicsObj>(ptr2);
-		Renderer::Renderable rend2 = Renderer::Renderable(subPtr1, CreateSprite("sprites\\PP2.dds"));
+		Renderer::Renderable rend2 = Renderer::Renderable(subPtr2, CreateSprite("sprites\\PP2.dds"));
 		
 
 		float dT;
@@ -165,7 +165,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 					forces2.clear();
 				}
 
-				//Physics::Update((*ptr1.operator->()), forces1, dT);
+				Physics::Update((*ptr1.operator->()), forces1, dT);
 				Physics::Update((*ptr2.operator->()), forces2, dT);
 
 
@@ -181,7 +181,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 			}
 		} while (bQuit == false);
 
-
+		
 
 		GLib::Shutdown();
 	}
