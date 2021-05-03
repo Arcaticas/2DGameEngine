@@ -172,6 +172,7 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
+    <ClCompile Include="MatrixUnitTest.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Renderable.cpp" />

@@ -149,5 +149,8 @@
     <ClCompile Include="Matrix3x3.cpp">
       <Filter>Source Files\Utility\Matrixes</Filter>
     </ClCompile>
+    <ClCompile Include="MatrixUnitTest.cpp">
+      <Filter>Source Files\Utility\Matrixes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
