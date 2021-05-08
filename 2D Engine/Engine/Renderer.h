@@ -1,12 +1,21 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <iterator>
+
 #include "Renderable.h"
 #include "GameObjectOwner.h"
 
 namespace Renderer
 {
-	static std::vector<Renderable> AllRenderablesObjects;
+	static std::vector<Renderable>& AllRenderablesObjects = *(new std::vector<Renderable>());
+
+	void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
+	GLib::Sprite* CreateGSprite(const char* i_pFilename);
 
 	void Draw(Renderable& i_renderable);
-	GameObjectObserver<Renderable> CreateRenderableObj();
+	void DrawAll();
+	void CreateRenderableObj(GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner, const std::string& i_spriteFile);
+
+	void Shutdown();
 }

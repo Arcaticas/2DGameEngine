@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <Windows.h>
 
 #include "Physics.h"
@@ -24,11 +23,11 @@ namespace Physics
 		return IsDebuggerPresent() ? (1.0f / 60.0f) : FrameTime;
 	}
 
-	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(float i_xPos,float i_yPos)
+	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(const float i_xPos,const float i_yPos)
 	{
-		TwoDPhysicsObj temp = TwoDPhysicsObj(i_xPos, i_yPos);
-		AllPhysicsObjects.push_back(temp);
-		return GameObjectOwner<TwoDPhysicsObj>(&temp);
+		TwoDPhysicsObj* temp = new TwoDPhysicsObj(i_xPos, i_yPos);
+		AllPhysicsObjects.push_back(*temp);
+		return GameObjectOwner<TwoDPhysicsObj>(temp);
 	}
 
 
@@ -83,5 +82,10 @@ namespace Physics
 			obj.posAndVec.setYVector(0);
 		}
 
+	}
+	void Shutdown()
+	{
+		AllPhysicsObjects.clear();
+		delete& AllPhysicsObjects;
 	}
 }

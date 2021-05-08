@@ -6,9 +6,11 @@
 
 namespace Physics
 {
-	static std::vector<TwoDPhysicsObj> AllPhysicsObjects;
+	static std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
 
 	float GetFrameTime();
-	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(float i_xPos, float i_yPos);
+	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(const float i_xPos,const float i_yPos);
 	void Update(TwoDPhysicsObj& obj, std::vector<Point2D>& forces, float dT);
+
+	void Shutdown();
 }

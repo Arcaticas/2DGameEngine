@@ -15,7 +15,7 @@ namespace Loader {
 
 			if (fopenError == 0)
 			{
-				assert(pFile == nullptr);
+				assert(pFile != nullptr);
 
 				int fileIOError = fseek(pFile, 0, SEEK_END);
 				assert(fileIOError == 0);
@@ -39,9 +39,10 @@ namespace Loader {
 		return Contents;
 	}
 
-	template <typename T>
-	GameObjectOwner<T> CreateGameObjectFromJSON(nlohmann::json& i_JSONdata)
+	GameObjectOwner<Physics::TwoDPhysicsObj> CreateGameObjectFromJSON(nlohmann::json& i_JSONdata)
 	{
+		GameObjectOwner<Physics::TwoDPhysicsObj> NewObj;
+
 		if (i_JSONdata.contains("inital position"))
 		{
 			nlohmann::json Position = i_JSONdata["inital position"];
@@ -49,7 +50,7 @@ namespace Loader {
 			assert(Position.size() == 2);
 			assert(Position[0].is_number_float() && Position[1].is_number_float());
 
-			GameObjectOwner<Physics::TwoDPhysicsObj> NewObj = Physics::CreatePhysicsObject(Position[0],Position[1]);
+			NewObj = Physics::CreatePhysicsObject(Position[0], Position[1]);
 
 			if (i_JSONdata.contains("components"))
 			{
@@ -69,7 +70,7 @@ namespace Loader {
 
 						if (Physics.contains("acceleration"))
 						{
-							nlohmann::json Acceleration = Physics[0];
+							nlohmann::json Acceleration = Physics.at("acceleration");
 							assert(Acceleration.is_array());
 							assert(Acceleration.size() == 2);
 							assert(Acceleration[0].is_number_float() && Acceleration[1].is_number_float());
@@ -79,16 +80,16 @@ namespace Loader {
 
 						if (Physics.contains("mass"))
 						{
-							nlohmann::json Mass = Physics[1];
+							nlohmann::json Mass = Physics.at("mass");
 							assert(Mass.is_number_float());
-							mass = Mass.value();
+							mass = Mass;
 						}
 
 						if (Physics.contains("drag"))
 						{
-							nlohmann::json Drag = Physics[2];
+							nlohmann::json Drag = Physics.at("drag");
 							assert(Drag.is_number_float());
-							drag = Drag.value();
+							drag = Drag;
 						}
 						NewObj->SetXAcceleration(xAccel);
 						NewObj->SetYAcceleration(yAccel);
@@ -102,28 +103,33 @@ namespace Loader {
 
 						if (Render.contains("sprite"))
 						{
-							assert(Render[0].is_string());
-
+							nlohmann::json Sprite = Render.value<std::string>("sprite","n/a");
+							assert(Sprite.is_string());
+							Renderer::CreateRenderableObj(NewObj,Sprite);
+							
 						}
 					}
 				}
 
 			}
+			
 		}
-		return GameObjectOwner<T>();
+
+		return NewObj;
 	}
 
-	template <typename T>
-	GameObjectOwner<T> CreateGameObject(const std::string& i_fileName)
+	GameObjectOwner<Physics::TwoDPhysicsObj> CreateGameObject(const std::string& i_fileName)
 	{
+		GameObjectOwner<Physics::TwoDPhysicsObj> NewObject;
 		std::vector<uint8_t> Contents = LoadFile(i_fileName);
 
 		if (!Contents.empty())
 		{
-
+			nlohmann::json JSON = nlohmann::json::parse(Contents);
+			NewObject = CreateGameObjectFromJSON(JSON);
 		}
 
-		return GameObjectOwner<T>();
+		return NewObject;
 	}
 
 
