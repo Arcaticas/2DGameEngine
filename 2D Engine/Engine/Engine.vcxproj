@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;$(SolutionDir)Libraries\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)Libraries\Jobs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;$(SolutionDir)Libraries\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLib;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)Libraries\Jobs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,10 +145,30 @@
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h" />
     <ClInclude Include="..\Libraries\GLib\GLib.h" />
+    <ClInclude Include="..\Libraries\Jobs\Console\ConsolePrint.h" />
+    <ClInclude Include="..\Libraries\Jobs\HashedString\HashedString-inl.h" />
+    <ClInclude Include="..\Libraries\Jobs\HashedString\HashedString.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\JobRunner.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\JobStatus.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\JobSystem.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\ProcessFileJob.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\SharedJobQueue-inl.h" />
+    <ClInclude Include="..\Libraries\Jobs\JobSystem\SharedJobQueue.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\AtomicOperations.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\Events.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\Mutex.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\ScopeLock.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\Semaphore.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\SingleWriterMultipleReader.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\SingleWriterMultipleReader.Win.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\WaitableObject.h" />
+    <ClInclude Include="..\Libraries\Jobs\Syncronization\WaitableObject.Win.h" />
+    <ClInclude Include="..\Libraries\Jobs\Windows\WindowsHelpers.h" />
     <ClInclude Include="2DPhysicsObj-inl.h" />
     <ClInclude Include="2DPhysicsObj.h" />
     <ClInclude Include="Counters.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectController.h" />
     <ClInclude Include="GameObjectObserver.h" />
     <ClInclude Include="GameObjectOwner.h" />
     <ClInclude Include="Matrix.h" />
@@ -166,8 +186,18 @@
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Libraries\Jobs\Console\ConsolePrint.Win.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\Console\ConsolePrint.Win32.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\HashedString\HashedString.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\JobSystem\JobRunner.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\JobSystem\JobSystem.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\JobSystem\SharedJobQueue.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\Syncronization\AtomicOperations.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\Syncronization\Events.Win.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\Syncronization\Mutex.Win.cpp" />
+    <ClCompile Include="..\Libraries\Jobs\Syncronization\Semaphore.Win.cpp" />
     <ClCompile Include="2DPhysicsObj.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectController.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />

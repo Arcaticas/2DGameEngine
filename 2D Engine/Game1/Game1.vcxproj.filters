@@ -26,5 +26,8 @@
     <None Include="test.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="test2.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

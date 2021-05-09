@@ -10,7 +10,6 @@ Renderer::Renderable::Renderable() :
 Renderer::Renderable::Renderable(const GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner, GLib::Sprite* i_sprite) :
 	m_owner(i_owner)
 {
-	
 	m_sprite = i_sprite;
 }
 

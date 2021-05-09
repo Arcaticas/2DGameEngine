@@ -77,6 +77,11 @@ public:
 		(*m_count).m_Owners++;
 	}
 
+	operator bool()
+	{
+		return (m_ptr != nullptr);
+	}
+
 private:
 	T* m_ptr;
 	Counters* m_count;
