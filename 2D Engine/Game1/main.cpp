@@ -43,7 +43,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
 
-
+	
 
 	if (bSuccess&&tSuccess)
 	{
@@ -56,7 +56,6 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 		GameObjectOwner<Physics::TwoDPhysicsObj> ptr2 = Loader::CreateGameObject("test.json");
 		GameObjectOwner<Physics::TwoDPhysicsObj> ptr3 = Loader::CreateGameObject("test.json");
 		
-
 		float dT;
 
 		bool bQuit = false;

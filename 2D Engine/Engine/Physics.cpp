@@ -8,6 +8,9 @@
 
 namespace Physics
 {
+	static std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
+
+
 	float GetFrameTime()
 	{
 		static Timing::tick_t lastFrameStartTick = 0;

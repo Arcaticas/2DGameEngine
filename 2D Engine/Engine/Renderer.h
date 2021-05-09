@@ -8,7 +8,7 @@
 
 namespace Renderer
 {
-	static std::vector<Renderable>& AllRenderablesObjects = *(new std::vector<Renderable>());
+	extern std::vector<Renderable>& AllRenderablesObjects;
 
 	void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
 	GLib::Sprite* CreateGSprite(const char* i_pFilename);

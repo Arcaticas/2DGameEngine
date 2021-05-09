@@ -2,6 +2,9 @@
 
 namespace Renderer
 {
+	static std::vector<Renderable>& AllRenderablesObjects = *(new std::vector<Renderable>());
+
+
 	void* LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 	{
 		assert(i_pFilename != NULL);
