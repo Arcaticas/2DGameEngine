@@ -37,7 +37,7 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
 {
 
-	//_CrtSetBreakAlloc(221);
+	_CrtSetBreakAlloc(216);
 
 	TestMatrix();
 
@@ -68,7 +68,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 			&JobStatus
 				);
 		JobStatus.WaitForZeroJobsLeft();
-
+		
 
 		float dT;
 

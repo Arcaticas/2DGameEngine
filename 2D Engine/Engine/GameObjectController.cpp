@@ -3,8 +3,8 @@
 
 namespace Engine
 {
-	std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>> AllGameObjects;
-	std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>> NewGameObjects;
+	static std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& AllGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
+	static std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& NewGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
 
 
 	Engine::Mutex NewGameObjectMutex;
@@ -46,16 +46,18 @@ namespace Engine
 			}
 
 			NewGameObjects.clear();
-		}
 	}
+		}
 	void ClearObjects()
 	{
 		CheckForNewGameObjects();
-		//for (GameObjectOwner<Physics::TwoDPhysicsObj> p : AllGameObjects)
+		delete &NewGameObjects;
+		//for (GameObjectOwner<Physics::TwoDPhysicsObj>* p : AllGameObjects)
 		//{
 		//	if (p)
 		//		delete p;
 		//}
 		AllGameObjects.clear();
+		delete &AllGameObjects;
 	}
 }

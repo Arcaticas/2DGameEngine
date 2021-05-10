@@ -8,6 +8,8 @@
 
 namespace Physics
 {
+	static std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
+
 	float GetFrameTime()
 	{
 		static Timing::tick_t lastFrameStartTick = 0;
@@ -26,7 +28,7 @@ namespace Physics
 	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(const float i_xPos,const float i_yPos)
 	{
 		TwoDPhysicsObj* temp = new TwoDPhysicsObj(i_xPos, i_yPos);
-		AllPhysicsObjects.push_back(temp);
+		AllPhysicsObjects.push_back(*temp);
 		return GameObjectOwner<TwoDPhysicsObj>(temp);
 	}
 

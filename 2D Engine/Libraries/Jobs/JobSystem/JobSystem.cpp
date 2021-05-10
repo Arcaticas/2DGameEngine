@@ -37,7 +37,7 @@ namespace Engine
 		};
 
 		bool bShutdownRequested = false;
-		std::map<HashedString, JobQueueData*>	Queues;
+		std::map<HashedString, JobQueueData*>&	Queues = *new std::map<HashedString, JobQueueData*>();;
 
 		void RequestShutdown()
 		{
@@ -92,7 +92,7 @@ namespace Engine
 			}
 
 			Queues.clear();
-
+			delete &Queues;
 		}
 
 		bool ShutdownRequested()
