@@ -4,5 +4,5 @@
 class GameObject 
 {
 public:
-	Point2D posAndVec;
+	Point2D m_posAndVec;
 };
