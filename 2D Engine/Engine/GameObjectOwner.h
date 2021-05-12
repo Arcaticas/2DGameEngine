@@ -9,11 +9,11 @@ class GameObjectOwner
 	template <typename T>
 	friend class GameObjectObserver;
 public:
-	
+
 	GameObjectOwner() :
-		m_ptr(nullptr),
-		m_count(new Counters(0, 0))
-	{	
+		m_count(new Counters(1,0)),
+		m_ptr(nullptr)
+	{
 	}
 
 	GameObjectOwner(T* i_ptr) :
@@ -21,7 +21,7 @@ public:
 	{
 		m_ptr = i_ptr;
 	}
-	
+
 	GameObjectOwner(const GameObjectOwner<T>& i_copy)
 	{
 		m_ptr = i_copy.m_ptr;
@@ -29,7 +29,7 @@ public:
 		(*m_count).m_Owners++;
 	}
 
-	
+	template <typename T>
 	GameObjectOwner(const GameObjectObserver<T>& i_copy)
 	{
 		m_ptr = i_copy.m_ptr;
@@ -39,6 +39,7 @@ public:
 
 	~GameObjectOwner()
 	{
+		assert(((*m_count).m_Owners) > 0);
 		if (--((*m_count).m_Owners) == 0)
 		{
 			delete m_ptr;
@@ -57,6 +58,28 @@ public:
 	{
 		assert(m_ptr);
 		return *m_ptr;
+	}
+
+	void operator=(const GameObjectOwner<T>& i_other)
+	{
+		assert(((*m_count).m_Owners) > 0);
+		if (--((*m_count).m_Owners) == 0)
+		{
+			delete m_ptr;
+			if ((*m_count).m_Observers == 0)
+			{
+				delete m_count;
+			}
+		}
+
+		m_ptr = i_other.m_ptr;
+		m_count = i_other.m_count;
+		(*m_count).m_Owners++;
+	}
+
+	operator bool()
+	{
+		return (m_ptr != nullptr);
 	}
 
 private:
