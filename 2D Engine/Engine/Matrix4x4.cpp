@@ -10,7 +10,13 @@ namespace Matrix
 		r3c1(0), r3c2(0), r3c3(0), r3c4(0),
 		r4c1(0), r4c2(0), r4c3(0), r4c4(0)
 	{
-
+	}
+	Matrix4x4::Matrix4x4(const Matrix4x4& i_copy) :
+		r1c1(i_copy.r1c1), r1c2(i_copy.r1c2), r1c3(i_copy.r1c3), r1c4(i_copy.r1c4),
+		r2c1(i_copy.r2c1), r2c2(i_copy.r2c2), r2c3(i_copy.r2c3), r2c4(i_copy.r2c4),
+		r3c1(i_copy.r3c1), r3c2(i_copy.r3c2), r3c3(i_copy.r3c3), r3c4(i_copy.r3c4),
+		r4c1(i_copy.r4c1), r4c2(i_copy.r4c2), r4c3(i_copy.r4c3), r4c4(i_copy.r4c4)
+	{
 	}
 	Matrix4x4::Matrix4x4(float i_r1c1, float i_r1c2, float i_r1c3, float i_r1c4, float i_r2c1, float i_r2c2, float i_r2c3, float i_r2c4, float i_r3c1, float i_r3c2, float i_r3c3, float i_r3c4, float i_r4c1, float i_r4c2, float i_r4c3, float i_r4c4) :
 		r1c1(i_r1c1), r1c2(i_r1c2), r1c3(i_r1c3), r1c4(i_r1c4),
@@ -270,6 +276,10 @@ namespace Matrix
 	Matrix4x4 Matrix4x4::Invert()
 	{
 		float determinant = this->Get4x4Determinate();
+		if (determinant == 0)
+		{
+			return Matrix4x4(*this);
+		}
 		Matrix4x4 adjunct = Matrix4x4(
 			this->Get4x4CofactorDeterminate(0, 0), this->Get4x4CofactorDeterminate(0, 1), this->Get4x4CofactorDeterminate(0, 2), this->Get4x4CofactorDeterminate(0, 3),
 			this->Get4x4CofactorDeterminate(1, 0), this->Get4x4CofactorDeterminate(1, 1), this->Get4x4CofactorDeterminate(1, 2), this->Get4x4CofactorDeterminate(1, 3),

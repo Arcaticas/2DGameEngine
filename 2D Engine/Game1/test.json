@@ -11,6 +11,9 @@
     },
     "Renderable": {
       "sprite": "sprites\\PP1.dds"
+    },
+    "Collidable": {
+      "extent": [100.0, 100.0]
     }
   }
 

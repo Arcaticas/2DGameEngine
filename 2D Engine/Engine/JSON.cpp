@@ -109,6 +109,25 @@ namespace Loader {
 							
 						}
 					}
+
+					if (it.key() == "Collidable")
+					{
+						nlohmann::json Collide = it.value();
+
+						float xExtent = 0;
+						float yExtent = 0;
+						if (Collide.contains("extent"))
+						{
+							nlohmann::json Extent = Collide.at("extent");
+							assert(Extent.is_array());
+							assert(Extent.size() == 2);
+							assert(Extent[0].is_number_float() && Extent[1].is_number_float());
+							xExtent = Extent[0];
+							yExtent = Extent[1];
+							Collision::CreateCollidable(NewObj, xExtent, yExtent);
+
+						}
+					}
 				}
 
 			}

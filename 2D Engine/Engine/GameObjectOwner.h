@@ -77,6 +77,18 @@ public:
 		(*m_count).m_Owners++;
 	}
 
+	bool operator==(const GameObjectOwner<T>& i_other)
+	{
+		if (m_ptr == (i_other.m_ptr))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	operator bool()
 	{
 		return (m_ptr != nullptr);

@@ -1,8 +1,10 @@
 #include "Collision.h"
+#include <Windows.h>
+#include <debugapi.h>
 
 namespace Collision
 {
-    static std::vector<Collidable>& AllCollidables = *new std::vector<Collidable>();
+    std::vector<Collidable>& AllCollidables = *(new std::vector<Collidable>());
 
     bool IsCollidingStatic(Collidable& i_a, Collidable& i_b)
     {
@@ -136,6 +138,7 @@ namespace Collision
 
         return true;
     }
+
     bool IsCollidingSweep(Collidable& i_a, Collidable& i_b, float frameTime)
     {
         //Transform Matrixes
@@ -235,6 +238,7 @@ namespace Collision
             if (tCloseY < tOpenX)
             {
                 //tCloseY = timeOfCollision
+                OutputDebugString(L"things\n");
                 return true;
             }
         }
@@ -243,19 +247,20 @@ namespace Collision
             if (tCloseX < tOpenY)
             {
                 //tCloseX = timeOfCollision
+                OutputDebugString(L"stuff\n");
                 return true;
             }
         }
         
 
-        
-
-
-
-
 
 
         return false;
+    }
+
+    void CreateCollidable(GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner, float i_xExtent, float i_yExtent)
+    {
+        AllCollidables.push_back(Collidable(i_owner, Point2D(i_xExtent, i_yExtent)));
     }
 
     void Shutdown()

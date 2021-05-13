@@ -6,17 +6,15 @@ namespace Collision {
 		m_owner(i_owner),
 		m_collided(false)
 	{
-		m_center = (i_owner->posAndVec + i_extent)/2;
+		m_center = (i_owner->posAndVec + i_extent);
 		m_extent = i_extent;
 	}
 
-
-	Collidable::Collidable(GameObjectOwner<Physics::TwoDPhysicsObj>& i_owner, const Point2D& i_center, const Point2D& i_extent) :
-		m_owner(i_owner),
-		m_center(i_center),
-		m_extent(i_extent),
-		m_collided(false)
+	void Collidable::Update()
 	{
+		GameObjectOwner<Physics::TwoDPhysicsObj> tempOwner = m_owner.CreateOwner<Physics::TwoDPhysicsObj>();
+		Point2D update = tempOwner->posAndVec + m_extent;
+		m_center = update;
 	}
 
 	Matrix::Matrix4x4 Collidable::GetRotationMatrix()

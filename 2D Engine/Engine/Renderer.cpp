@@ -2,7 +2,7 @@
 
 namespace Renderer
 {
-	static std::vector<Renderable>& AllRenderablesObjects = *(new std::vector<Renderable>());
+	std::vector<Renderable>& AllRenderablesObjects = *(new std::vector<Renderable>());
 
 	void* LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 	{
@@ -85,7 +85,7 @@ namespace Renderer
 	{
 		assert(i_renderable.GetSprite());
 		GLib::Point2D location = { i_renderable.GetLocationFromParent().getXPosition(),
-			i_renderable.GetLocationFromParent().getXPosition() };
+			i_renderable.GetLocationFromParent().getYPosition() };
 		GLib::Render(*i_renderable.GetSprite(), location, 0, 0);
 	}
 

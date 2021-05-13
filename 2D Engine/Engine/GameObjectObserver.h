@@ -56,6 +56,11 @@ public:
 		(*m_count).m_Observers++;
 	}
 
+	bool operator==(const GameObjectObserver<T>& i_other)
+	{
+		return m_ptr == i_other.m_ptr;
+	}
+
 private:
 	T* m_ptr;
 	Counters* m_count;

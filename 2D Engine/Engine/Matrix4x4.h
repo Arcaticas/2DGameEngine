@@ -10,6 +10,7 @@ namespace Matrix
 	{
 	public:
 		Matrix4x4();
+		Matrix4x4(const Matrix4x4& i_copy);
 		Matrix4x4(float i_r1c1, float i_r1c2, float i_r1c3, float i_r1c4,
 				  float i_r2c1, float i_r2c2, float i_r2c3, float i_r2c4,
 				  float i_r3c1, float i_r3c2, float i_r3c3, float i_r3c4,

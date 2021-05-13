@@ -3,12 +3,14 @@
 
 #include "Physics.h"
 #include "Timing.h"
+#include "Collision.h"
+
 
 
 
 namespace Physics
 {
-	static std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
+	std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
 
 	float GetFrameTime()
 	{
@@ -37,6 +39,17 @@ namespace Physics
 	{
 		float xForces = 0;
 		float yForces = 0;
+		
+
+		if (obj.posAndVec.getXVector() < .01f && obj.posAndVec.getXVector() > -.01f)
+		{
+			obj.posAndVec.setXVector(0);
+		}
+		if (obj.posAndVec.getYVector() < .01f && obj.posAndVec.getYVector() > -.01f)
+		{
+			obj.posAndVec.setYVector(0);
+		}
+
 		float preXVelocity = obj.posAndVec.getXVector();
 		float preYVelocity = obj.posAndVec.getYVector();
 
@@ -75,15 +88,13 @@ namespace Physics
 		obj.posAndVec.setXPosition(obj.posAndVec.getXPosition() + ((preXVelocity + obj.posAndVec.getXVector()) / 2) * dT);
 		obj.posAndVec.setYPosition(obj.posAndVec.getYPosition() + ((preYVelocity + obj.posAndVec.getYVector()) / 2) * dT);
 
-		if (obj.posAndVec.getXVector() < .01f && obj.posAndVec.getXVector() > -.01f)
-		{
-			obj.posAndVec.setXVector(0);
-		}
-		if (obj.posAndVec.getYVector() < .01f && obj.posAndVec.getYVector() > -.01f)
-		{
-			obj.posAndVec.setYVector(0);
-		}
+		
 
+		for (Collision::Collidable& it : Collision::AllCollidables)
+		{
+			it.Update();
+		}
+		
 	}
 	void Shutdown()
 	{

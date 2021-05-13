@@ -34,23 +34,35 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 		dDown = false;
 }
 
+Collision::Collidable GetCollidable(const GameObjectOwner<Physics::TwoDPhysicsObj>& i_ptr)
+{
+	for(Collision::Collidable& it : Collision::AllCollidables)
+	{
+		GameObjectOwner<Physics::TwoDPhysicsObj> temp = it.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
+		if (temp == i_ptr)
+		{
+			return it;
+		}
+
+	}
+}
 
 int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In_ LPWSTR i_lpCmdLine, _In_ int i_nCmdShow)
 {
 
 	_CrtSetBreakAlloc(216);
 
-	TestMatrix();
+	assert(TestMatrix());
 
 	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "GLibTest", -1, 1600, 900, true);
 	bool tSuccess = Timing::Int();
+	Engine::JobSystem::Init();
 
 
 
 	if (bSuccess&&tSuccess)
 	{
 		GLib::SetKeyStateChangeCallback(TestKeyCallback);
-		Engine::JobSystem::Init();
 
 		std::vector<Point2D> forces1;
 		std::vector<Point2D> forces2;
@@ -68,6 +80,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 			},
 			&JobStatus
 				);
+		JobStatus.WaitForZeroJobsLeft();
 		Engine::JobSystem::RunJob(
 			Engine::JobSystem::GetDefaultQueueName(),
 			[]()
@@ -77,7 +90,6 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 			&JobStatus
 				);
 		JobStatus.WaitForZeroJobsLeft();
-		
 
 		float frameTime;
 
@@ -94,7 +106,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 
 				if (aDown)
 				{
-					forces1.push_back(Point2D(.001f, .001f));
+					forces1.push_back(Point2D(0, -.01f));
 				}
 				else
 				{
@@ -110,9 +122,15 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 					forces2.clear();
 				}
 
-				
 				Physics::Update((*ptr1), forces1, frameTime);
 
+				//checks that collsion is detected in someway
+				for (Collision::Collidable& it : Collision::AllCollidables)
+				{
+					Collision::Collidable temp = GetCollidable(ptr1);
+					if(!(temp.GetObserver() == it.GetObserver()))
+						Collision::IsCollidingSweep(temp, it, frameTime);
+				}
 
 				//Rendering
 				GLib::BeginRendering(DirectX::Colors::Red);
