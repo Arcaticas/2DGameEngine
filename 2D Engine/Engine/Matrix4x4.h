@@ -27,10 +27,10 @@ namespace Matrix
 		Matrix4x4 operator*(const Matrix4x4& i_matrix);
 		Vector4 operator*(const Vector4& i_v4);
 
-		Matrix4x4 CreateRotationX(float i_x);
-		Matrix4x4 CreateRotationY(float i_y);
-		Matrix4x4 CreateRotationZ(float i_z);
-		Matrix4x4 CreateTranslation(float i_x, float i_y, float i_z);
+		static Matrix4x4 CreateRotationX(float i_x);
+		static Matrix4x4 CreateRotationY(float i_y);
+		static Matrix4x4 CreateRotationZ(float i_z);
+		static Matrix4x4 CreateTranslation(float i_x, float i_y, float i_z);
 
 		float GetValue(int i_row, int i_col);
 		void SetValue(int i_row, int i_col, float i_value);

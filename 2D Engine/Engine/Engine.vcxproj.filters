@@ -76,6 +76,12 @@
     <Filter Include="Header Files\Engine\Syncronization">
       <UniqueIdentifier>{6dc592c8-e4fd-4b83-a088-3993068251e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{9f6f162e-76cb-44c0-994f-93b62b8352c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{65271d54-f1e2-4f34-896d-8015723046cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\GLib\BasicTypes.h">
@@ -201,6 +207,12 @@
     <ClInclude Include="GameObjectController.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Collidable.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Physics.cpp">
@@ -271,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="GameObjectController.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collidable.cpp">
+      <Filter>Source Files\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

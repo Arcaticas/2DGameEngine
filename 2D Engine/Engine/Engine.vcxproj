@@ -166,6 +166,8 @@
     <ClInclude Include="..\Libraries\Jobs\Windows\WindowsHelpers.h" />
     <ClInclude Include="2DPhysicsObj-inl.h" />
     <ClInclude Include="2DPhysicsObj.h" />
+    <ClInclude Include="Collidable.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Counters.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectController.h" />
@@ -197,6 +199,8 @@
     <ClCompile Include="..\Libraries\Jobs\Syncronization\Mutex.Win.cpp" />
     <ClCompile Include="..\Libraries\Jobs\Syncronization\Semaphore.Win.cpp" />
     <ClCompile Include="2DPhysicsObj.cpp" />
+    <ClCompile Include="Collidable.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameObjectController.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Matrix.cpp" />

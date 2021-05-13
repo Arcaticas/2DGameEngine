@@ -7,6 +7,7 @@
 #include "GameObjectController.h"
 #include "JSON.h"
 #include "Timing.h"
+#include "Collision.h"
 #include <MatrixUnitTest.cpp>
 
 bool aDown = false;
@@ -67,10 +68,18 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 			},
 			&JobStatus
 				);
+		Engine::JobSystem::RunJob(
+			Engine::JobSystem::GetDefaultQueueName(),
+			[]()
+			{
+				Engine::AddNewGameObject(Loader::CreateGameObject("test2.json"));
+			},
+			&JobStatus
+				);
 		JobStatus.WaitForZeroJobsLeft();
 		
 
-		float dT;
+		float frameTime;
 
 		bool bQuit = false;
 
@@ -81,7 +90,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 				Engine::CheckForNewGameObjects();
 
 
-				dT = Physics::GetFrameTime();
+				frameTime = Physics::GetFrameTime();
 
 				if (aDown)
 				{
@@ -102,7 +111,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 				}
 
 				
-				Physics::Update((*ptr1), forces1, dT);
+				Physics::Update((*ptr1), forces1, frameTime);
 
 
 				//Rendering
@@ -118,6 +127,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 
 
 		Renderer::Shutdown();
+		Collision::Shutdown();
 		Physics::Shutdown();
 		GLib::Shutdown();
 		Engine::ClearObjects();
