@@ -7,7 +7,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(1),
-		m_dragCoef(.1f)
+		m_dragCoef(.1f),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D();
 	}
@@ -16,7 +17,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(1),
-		m_dragCoef(.1f)
+		m_dragCoef(.1f),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D(i_xP, i_yP);
 	}
@@ -25,7 +27,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(i_mass),
-		m_dragCoef(.1f)
+		m_dragCoef(.1f),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D(i_xP, i_yP);
 	}
@@ -34,7 +37,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(i_mass),
-		m_dragCoef(i_dragCoef)
+		m_dragCoef(i_dragCoef),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D(i_xP, i_yP);
 	}
@@ -43,7 +47,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(i_mass),
-		m_dragCoef(.1f)
+		m_dragCoef(.1f),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D(i_xP, i_yP, i_xV, i_yV);
 	}
@@ -52,7 +57,8 @@ namespace Physics {
 		m_xAcceleration(0),
 		m_yAcceleration(0),
 		m_mass(i_mass),
-		m_dragCoef(i_dragCoef)
+		m_dragCoef(i_dragCoef),
+		m_zRotation(0)
 	{
 		posAndVec = Point2D(i_xP, i_yP, i_xV, i_yV);
 	}

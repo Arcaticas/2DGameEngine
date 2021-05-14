@@ -10,15 +10,18 @@ namespace Matrix
 	{
 	public:
 		Matrix4x4();
+		Matrix4x4(const Matrix4x4& i_copy);
 		Matrix4x4(float i_r1c1, float i_r1c2, float i_r1c3, float i_r1c4,
 				  float i_r2c1, float i_r2c2, float i_r2c3, float i_r2c4,
 				  float i_r3c1, float i_r3c2, float i_r3c3, float i_r3c4,
 				  float i_r4c1, float i_r4c2, float i_r4c3, float i_r4c4);
 
+		bool operator==(const Matrix4x4& i_matrix);
+
 		Matrix4x4 operator+=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator-=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator*=(const float i_scalar);
-		Vector4 operator*=(const Vector4& i_v4);
+		Vector4 operator*=(const Vector4&);
 		Matrix4x4 operator*=(const Matrix4x4& i_matrix);
 		Matrix4x4 operator/=(const float i_scalar);
 
@@ -44,6 +47,4 @@ namespace Matrix
 			  r3c1, r3c2, r3c3, r3c4,
 			  r4c1, r4c2, r4c3, r4c4;
 	};
-
-	
 }

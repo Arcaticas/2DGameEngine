@@ -9,6 +9,8 @@ namespace Matrix
 		Vector4();
 		Vector4(float x, float y, float z, float w);
 
+		inline bool operator==(const Vector4&);
+
 		inline Vector4 operator+=(const Vector4&);
 		inline Vector4 operator-=(const Vector4&);
 		inline Vector4 operator*=(const float);

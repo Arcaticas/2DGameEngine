@@ -1,14 +1,17 @@
 #include <iostream>
-#include <vector>
 #include <Windows.h>
 
 #include "Physics.h"
 #include "Timing.h"
+#include "Collision.h"
+
 
 
 
 namespace Physics
 {
+	std::vector<TwoDPhysicsObj>& AllPhysicsObjects = *(new std::vector<TwoDPhysicsObj>());
+
 	float GetFrameTime()
 	{
 		static Timing::tick_t lastFrameStartTick = 0;
@@ -24,11 +27,11 @@ namespace Physics
 		return IsDebuggerPresent() ? (1.0f / 60.0f) : FrameTime;
 	}
 
-	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(float i_xPos,float i_yPos)
+	GameObjectOwner<TwoDPhysicsObj> CreatePhysicsObject(const float i_xPos,const float i_yPos)
 	{
-		TwoDPhysicsObj temp = TwoDPhysicsObj(i_xPos, i_yPos);
-		AllPhysicsObjects.push_back(temp);
-		return GameObjectOwner<TwoDPhysicsObj>(&temp);
+		TwoDPhysicsObj* temp = new TwoDPhysicsObj(i_xPos, i_yPos);
+		AllPhysicsObjects.push_back(*temp);
+		return GameObjectOwner<TwoDPhysicsObj>(temp);
 	}
 
 
@@ -36,6 +39,17 @@ namespace Physics
 	{
 		float xForces = 0;
 		float yForces = 0;
+		
+
+		if (obj.posAndVec.getXVector() < .01f && obj.posAndVec.getXVector() > -.01f)
+		{
+			obj.posAndVec.setXVector(0);
+		}
+		if (obj.posAndVec.getYVector() < .01f && obj.posAndVec.getYVector() > -.01f)
+		{
+			obj.posAndVec.setYVector(0);
+		}
+
 		float preXVelocity = obj.posAndVec.getXVector();
 		float preYVelocity = obj.posAndVec.getYVector();
 
@@ -74,14 +88,17 @@ namespace Physics
 		obj.posAndVec.setXPosition(obj.posAndVec.getXPosition() + ((preXVelocity + obj.posAndVec.getXVector()) / 2) * dT);
 		obj.posAndVec.setYPosition(obj.posAndVec.getYPosition() + ((preYVelocity + obj.posAndVec.getYVector()) / 2) * dT);
 
-		if (obj.posAndVec.getXVector() < .01f && obj.posAndVec.getXVector() > -.01f)
-		{
-			obj.posAndVec.setXVector(0);
-		}
-		if (obj.posAndVec.getYVector() < .01f && obj.posAndVec.getYVector() > -.01f)
-		{
-			obj.posAndVec.setYVector(0);
-		}
+		
 
+		for (Collision::Collidable& it : Collision::AllCollidables)
+		{
+			it.Update();
+		}
+		
+	}
+	void Shutdown()
+	{
+		AllPhysicsObjects.clear();
+		delete& AllPhysicsObjects;
 	}
 }

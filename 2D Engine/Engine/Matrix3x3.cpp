@@ -73,11 +73,11 @@ void Matrix::Matrix3x3::SetValue(int i_row, int i_col, float i_value)
 float Matrix::Matrix3x3::Get3x3Determinate()
 {
 	float determinate =
-		this->GetValue(0, 0) * this->GetValue(1, 1) * this->GetValue(2, 2) +
-		this->GetValue(0, 1) * this->GetValue(1, 2) * this->GetValue(2, 0) +
-		this->GetValue(0, 2) * this->GetValue(1, 0) * this->GetValue(2, 1) -
-		this->GetValue(0, 2) * this->GetValue(1, 1) * this->GetValue(2, 0) -
-		this->GetValue(0, 1) * this->GetValue(1, 0) * this->GetValue(2, 2) -
-		this->GetValue(0, 0) * this->GetValue(1, 2) * this->GetValue(2, 1);
+		(this->GetValue(0, 0) * this->GetValue(1, 1) * this->GetValue(2, 2)) +
+		(this->GetValue(0, 1) * this->GetValue(1, 2) * this->GetValue(2, 0)) +
+		(this->GetValue(0, 2) * this->GetValue(1, 0) * this->GetValue(2, 1)) -
+		(this->GetValue(0, 2) * this->GetValue(1, 1) * this->GetValue(2, 0)) -
+		(this->GetValue(0, 1) * this->GetValue(1, 0) * this->GetValue(2, 2)) -
+		(this->GetValue(0, 0) * this->GetValue(1, 2) * this->GetValue(2, 1));
 	return determinate;
 }
