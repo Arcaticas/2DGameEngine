@@ -118,7 +118,7 @@ namespace Matrix
 		return Matrix4x4(1, 0, 0, 0,
 			0, cos(i_x), -sin(i_x), 0,
 			0, sin(i_x), cos(i_x), 0,
-			0, 0, 0, 0);
+			0, 0, 0, 1);
 	}
 
 	Matrix4x4 Matrix4x4::CreateRotationY(float i_y)
@@ -126,23 +126,23 @@ namespace Matrix
 		return Matrix4x4(cos(i_y), 0, sin(i_y), 0,
 			0, 1, 0, 0,
 			-sin(i_y), 0, cos(i_y), 0,
-			0, 0, 0, 0);
+			0, 0, 0, 1);
 	}
 
 	Matrix4x4 Matrix4x4::CreateRotationZ(float i_z)
 	{
 		return Matrix4x4(cos(i_z), -sin(i_z), 0, 0,
-			sin(i_z), cos(i_z), 0, 0,
-			0, 0, 1, 0,
-			0, 0, 0, 0);
+						sin(i_z), cos(i_z), 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1);
 	}
 
 	Matrix4x4 Matrix4x4::CreateTranslation(float i_x, float i_y, float i_z)
 	{
 		return Matrix4x4(1, 0, 0, i_x,
-			0, 1, 0, i_y,
-			0, 0, 1, i_z,
-			0, 0, 0, 1);
+						0, 1, 0, i_y,
+						0, 0, 1, i_z,
+						0, 0, 0, 1);
 	}
 
 	float Matrix4x4::GetValue(int i_row, int i_col)
@@ -281,10 +281,10 @@ namespace Matrix
 			return Matrix4x4(*this);
 		}
 		Matrix4x4 adjunct = Matrix4x4(
-			this->Get4x4CofactorDeterminate(0, 0), this->Get4x4CofactorDeterminate(0, 1), this->Get4x4CofactorDeterminate(0, 2), this->Get4x4CofactorDeterminate(0, 3),
-			this->Get4x4CofactorDeterminate(1, 0), this->Get4x4CofactorDeterminate(1, 1), this->Get4x4CofactorDeterminate(1, 2), this->Get4x4CofactorDeterminate(1, 3),
-			this->Get4x4CofactorDeterminate(2, 0), this->Get4x4CofactorDeterminate(2, 1), this->Get4x4CofactorDeterminate(2, 2), this->Get4x4CofactorDeterminate(2, 3),
-			this->Get4x4CofactorDeterminate(3, 0), this->Get4x4CofactorDeterminate(3, 1), this->Get4x4CofactorDeterminate(3, 2), this->Get4x4CofactorDeterminate(3, 3)
+			this->Get4x4CofactorDeterminate(0, 0), -this->Get4x4CofactorDeterminate(1, 0), this->Get4x4CofactorDeterminate(2, 0), -this->Get4x4CofactorDeterminate(3, 0),
+			-this->Get4x4CofactorDeterminate(0, 1), this->Get4x4CofactorDeterminate(1, 1), -this->Get4x4CofactorDeterminate(2, 1), this->Get4x4CofactorDeterminate(3, 1),
+			this->Get4x4CofactorDeterminate(0, 2), -this->Get4x4CofactorDeterminate(1, 2), this->Get4x4CofactorDeterminate(2, 2), -this->Get4x4CofactorDeterminate(3, 2),
+			-this->Get4x4CofactorDeterminate(0, 3), this->Get4x4CofactorDeterminate(1, 3), -this->Get4x4CofactorDeterminate(2, 3), this->Get4x4CofactorDeterminate(3, 3)
 		);
 
 		return adjunct /= determinant;

@@ -72,15 +72,7 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 
 		GameObjectOwner<Physics::TwoDPhysicsObj> ptr1 = Loader::CreateGameObject("test.json");
 		
-		Engine::JobSystem::RunJob(
-			Engine::JobSystem::GetDefaultQueueName(),
-			[]()
-			{
-				Engine::AddNewGameObject(Loader::CreateGameObject("test.json"));
-			},
-			&JobStatus
-				);
-		JobStatus.WaitForZeroJobsLeft();
+
 		Engine::JobSystem::RunJob(
 			Engine::JobSystem::GetDefaultQueueName(),
 			[]()
@@ -106,21 +98,18 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 
 				if (aDown)
 				{
-					forces1.push_back(Point2D(0, -.01f));
+					forces1.push_back(Point2D(0, -0.01f));
+				}
+				else if(dDown)
+				{
+					forces1.push_back(Point2D(0.01f, 0));
 				}
 				else
 				{
 					forces1.clear();
 				}
 
-				if (dDown)
-				{
-					forces2.push_back(Point2D(-.001f, -.001f));
-				}
-				else
-				{
-					forces2.clear();
-				}
+
 
 				Physics::Update((*ptr1), forces1, frameTime);
 

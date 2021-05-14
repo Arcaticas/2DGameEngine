@@ -1,6 +1,6 @@
 {
   "name": "Test",
-  "inital position": [ -1.0,5.0 ],
+  "inital position": [0.0, 0.0 ],
 
   "components": 
   {
@@ -13,7 +13,7 @@
       "sprite": "sprites\\PP1.dds"
     },
     "Collidable": {
-      "extent": [100.0, 100.0]
+      "extent": [250.0, 200.0]
     }
   }
 

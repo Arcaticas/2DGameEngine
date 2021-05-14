@@ -28,7 +28,7 @@ namespace Collision {
 	{
 		GameObjectOwner<Physics::TwoDPhysicsObj> tempOwner = m_owner.CreateOwner<Physics::TwoDPhysicsObj>();
 
-		return Matrix::Matrix4x4::CreateTranslation(tempOwner->posAndVec.getXPosition(), tempOwner->posAndVec.getYPosition(), 1);
+		return Matrix::Matrix4x4::CreateTranslation(tempOwner->posAndVec.getXPosition(), tempOwner->posAndVec.getYPosition(), 0);
 	}
 
 	Matrix::Matrix4x4 Collidable::GetTransformationMatrix()

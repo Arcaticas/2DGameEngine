@@ -1,6 +1,6 @@
 {
   "name": "Test",
-  "inital position": [ -1.0, 500.0 ],
+  "inital position": [ 0.0, -500.0 ],
 
   "components": {
     "TwoDPhysicsObj": {
@@ -12,7 +12,7 @@
       "sprite": "sprites\\PP2.dds"
     },
     "Collidable": {
-      "extent": [ 100.0, 100.0 ]
+      "extent": [ 200.0, 200.0 ]
     }
   }
 

@@ -19,6 +19,16 @@ bool TestMatrix()
 
 	Vector4 D = Vector4(1, 2, 3, 4);
 
+	Matrix4x4 E = Matrix4x4(1, 0, 0, 6,
+							0, 1, 0, 2,
+							0, 0, 1, 5,
+							0, 0, 0, 1);
+
+	assert(E.Invert() == Matrix4x4(1, 0, 0, -6,
+								   0, 1, 0, -2,
+							       0, 0, 1, -5,
+								   0, 0, 0, 1));
+
 	assert((A+=B) == Matrix4x4(1, 0, 0, 1,
 							   0, 1, 1, 0,
 							   0, 1, 1, 0,

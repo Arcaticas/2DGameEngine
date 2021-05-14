@@ -10,15 +10,15 @@ namespace Collision
     {
         //Transform Matrixes
         Matrix::Matrix4x4 MARotation = i_a.GetRotationMatrix();
-        Matrix::Matrix4x4 MATranslation = i_a.GetTransformationMatrix();
+        Matrix::Matrix4x4 MATranslation = i_a.GetTranslationMatrix();
 
-        Matrix::Matrix4x4 MAtoWorld = MATranslation * MARotation;
+        Matrix::Matrix4x4 MAtoWorld =  MARotation * MATranslation;
         Matrix::Matrix4x4 MWorldtoA = MAtoWorld.Invert();
 
         Matrix::Matrix4x4 MBRotation = i_b.GetRotationMatrix();
-        Matrix::Matrix4x4 MBTranslation = i_b.GetTransformationMatrix();
+        Matrix::Matrix4x4 MBTranslation = i_b.GetTranslationMatrix();
 
-        Matrix::Matrix4x4 MBtoWorld = MBTranslation * MBRotation;
+        Matrix::Matrix4x4 MBtoWorld =  MBRotation * MBTranslation;
         Matrix::Matrix4x4 MWorldtoB = MBtoWorld.Invert();
 
         Matrix::Matrix4x4 MAtoB = MWorldtoB * MAtoWorld;
@@ -69,7 +69,7 @@ namespace Collision
         }
         else
         {
-            if (AsTopEdgeInB > BsBottomEdgeInB)
+            if (AsTopEdgeInB < BsBottomEdgeInB)
             {
                 seperationAxisInB--;
             }
@@ -125,7 +125,7 @@ namespace Collision
         }
         else
         {
-            if (AsTopEdgeInA > BsBottomEdgeInA)
+            if (AsTopEdgeInA < BsBottomEdgeInA)
             {
                 seperationAxisInA--;
             }
@@ -135,7 +135,7 @@ namespace Collision
         {
             return false;
         }
-
+        OutputDebugString(L"other\n");
         return true;
     }
 
@@ -143,15 +143,15 @@ namespace Collision
     {
         //Transform Matrixes
         Matrix::Matrix4x4 MARotation = i_a.GetRotationMatrix();
-        Matrix::Matrix4x4 MATranslation = i_a.GetTransformationMatrix();
+        Matrix::Matrix4x4 MATranslation = i_a.GetTranslationMatrix();
 
-        Matrix::Matrix4x4 MAtoWorld = MATranslation * MARotation;
+        Matrix::Matrix4x4 MAtoWorld = MARotation * MATranslation;
         Matrix::Matrix4x4 MWorldtoA = MAtoWorld.Invert();
 
         Matrix::Matrix4x4 MBRotation = i_b.GetRotationMatrix();
-        Matrix::Matrix4x4 MBTranslation = i_b.GetTransformationMatrix();
+        Matrix::Matrix4x4 MBTranslation = i_b.GetTranslationMatrix();
 
-        Matrix::Matrix4x4 MBtoWorld = MBTranslation * MBRotation;
+        Matrix::Matrix4x4 MBtoWorld =  MBRotation * MBTranslation;
         Matrix::Matrix4x4 MWorldtoB = MBtoWorld.Invert();
 
         Matrix::Matrix4x4 MAtoB = MWorldtoB * MAtoWorld;
@@ -174,7 +174,21 @@ namespace Collision
         Matrix::Vector4 AsVelocity = i_a.GetVelocity();
         Matrix::Vector4 BsVelocity = i_b.GetVelocity();
 
+
         Matrix::Vector4 AsRelativeVelocityToB =  MWorldtoB * (AsVelocity - BsVelocity);
+
+        if (AsRelativeVelocityToB.GetX() == 0 && (i_a.GetCenter().getXPosition() > (BsRightEdgeInB + AProjectionOntoB_X) || i_a.GetCenter().getXPosition() < (BsLeftEdgeInB - AProjectionOntoB_X)))
+        {
+            return false;
+        }
+        if (AsRelativeVelocityToB.GetY() == 0 && (i_a.GetCenter().getYPosition() > (BsBottomEdgeInB + AProjectionOntoB_Y) || i_a.GetCenter().getYPosition() < (BsTopEdgeInB - AProjectionOntoB_Y)))
+        {
+            return false;
+        }
+        if (AsRelativeVelocityToB.GetX() == 0 && AsRelativeVelocityToB.GetY() == 0)
+        {
+            return IsCollidingStatic(i_a, i_b);
+        }
 
         //X coord check
         float dLeft = (BsLeftEdgeInB - AProjectionOntoB_X) - i_a.GetCenter().getXPosition();
@@ -212,23 +226,15 @@ namespace Collision
         }
         else
         {
-            tCloseY = tUp;
-            tOpenY = tDown;
+            tCloseY = tDown;
+            tOpenY = tUp;
         }
 
-        if (tCloseX > frameTime || tCloseY > frameTime)
+        if (tCloseX > frameTime || tOpenX < 0 )
         {
             return false;
         }
-        if (tOpenX < 0 || tOpenY < 0)
-        {
-            return false;
-        }
-        if (AsRelativeVelocityToB.GetX() == 0 && (i_a.GetCenter().getXPosition() > (BsRightEdgeInB + AProjectionOntoB_X) || i_a.GetCenter().getXPosition() < (BsLeftEdgeInB - AProjectionOntoB_X)))
-        {
-            return false;
-        }
-        if (AsRelativeVelocityToB.GetY() == 0 && (i_a.GetCenter().getYPosition() > (BsBottomEdgeInB + AProjectionOntoB_Y) || i_a.GetCenter().getYPosition() < (BsTopEdgeInB - AProjectionOntoB_Y)))
+        if (tCloseY > frameTime || tOpenY < 0)
         {
             return false;
         }
