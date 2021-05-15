@@ -1,0 +1,19 @@
+{
+  "name": "Rocket",
+  "inital position": [ -600.0, 0.0 ],
+
+  "components": {
+    "TwoDPhysicsObj": {
+      "acceleration": [ 1.0, 1.0 ],
+      "mass": 1.0,
+      "drag": 1.0
+    },
+    "Renderable": {
+      "sprite": "sprites\\sqaureball.dds"
+    },
+    "Collidable": {
+      "extent": [ 100.0, 100.0 ]
+    }
+  }
+
+}

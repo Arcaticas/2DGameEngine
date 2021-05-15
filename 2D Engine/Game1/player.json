@@ -1,19 +1,16 @@
 {
-  "name": "Test",
-  "inital position": [0.0, 0.0 ],
+  "name": "Player",
+  "inital position": [ -500.0, 0.0 ],
 
   "components": 
   {
     "TwoDPhysicsObj": {
       "acceleration": [ 1.0, 1.0 ],
-      "mass": 1.0,
+      "mass": 2.0,
       "drag": 1.0
     },
     "Renderable": {
       "sprite": "sprites\\PP1.dds"
-    },
-    "Collidable": {
-      "extent": [250.0, 200.0]
     }
   }
 

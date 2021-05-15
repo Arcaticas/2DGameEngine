@@ -19,6 +19,7 @@ namespace Engine
 	void AddNewGameObject(GameObjectOwner<Physics::TwoDPhysicsObj> i_pNewGameObject);
 	void AddMultipleNewGameObjects(std::vector<const std::string>& i_jsonList);
 	void CheckForNewGameObjects();
+	void DeleteObject(GameObjectOwner<Physics::TwoDPhysicsObj>& i_ptr);
 	void ClearObjects();
 
 	

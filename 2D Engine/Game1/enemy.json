@@ -1,11 +1,11 @@
 {
-  "name": "Test",
-  "inital position": [ 0.0, -500.0 ],
+  "name": "Enemy",
+  "inital position": [ 700.0, -500.0 ],
 
   "components": {
     "TwoDPhysicsObj": {
       "acceleration": [ 1.0, 1.0 ],
-      "mass": 1.0,
+      "mass": 2.0,
       "drag": 1.0
     },
     "Renderable": {

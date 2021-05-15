@@ -62,5 +62,15 @@ namespace Physics {
 	{
 		posAndVec = Point2D(i_xP, i_yP, i_xV, i_yV);
 	}
+
+	bool TwoDPhysicsObj::operator==(const TwoDPhysicsObj& i_other)
+	{
+		return posAndVec == i_other.posAndVec && m_mass == i_other.m_mass && m_dragCoef == i_other.m_dragCoef
+			&& m_zRotation == i_other.m_zRotation && m_xAcceleration == i_other.m_xAcceleration && m_yAcceleration == i_other.m_yAcceleration;
+	}
+
+
+
+
 }
 

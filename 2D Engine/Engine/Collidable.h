@@ -23,6 +23,8 @@ namespace Collision
 		Matrix::Matrix4x4 GetTransformationMatrix();
 		Matrix::Vector4 GetVelocity();
 
+		operator bool();
+		bool operator==(const Collidable&);
 	private:
 		GameObjectObserver<Physics::TwoDPhysicsObj> m_owner;
 		Point2D m_center;

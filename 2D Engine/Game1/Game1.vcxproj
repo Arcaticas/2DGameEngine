@@ -155,15 +155,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.json" />
-    <None Include="test2.json" />
+    <None Include="player.json" />
+    <None Include="enemy.json" />
+    <None Include="rocket.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties test_1json__JsonSchema="json" />
+      <UserProperties />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

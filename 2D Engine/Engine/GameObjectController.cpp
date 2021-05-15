@@ -3,8 +3,8 @@
 
 namespace Engine
 {
-	static std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& AllGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
-	static std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& NewGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
+	std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& AllGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
+	std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>& NewGameObjects = *(new std::vector<GameObjectOwner<Physics::TwoDPhysicsObj>>());
 
 
 	Engine::Mutex NewGameObjectMutex;
@@ -48,15 +48,45 @@ namespace Engine
 			NewGameObjects.clear();
 	}
 		}
+	void DeleteObject(GameObjectOwner<Physics::TwoDPhysicsObj>& i_ptr)
+	{
+		int index = 0;
+		for (Renderer::Renderable it : Renderer::AllRenderablesObjects)
+		{
+			GameObjectOwner<Physics::TwoDPhysicsObj> temp = it.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
+			if (temp == i_ptr)
+			{
+				Renderer::AllRenderablesObjects.erase(Renderer::AllRenderablesObjects.begin()+index);
+				break;
+			}
+			index++;
+		}
+		index = 0;
+		for (Collision::Collidable it : Collision::AllCollidables)
+		{
+			GameObjectOwner<Physics::TwoDPhysicsObj> temp = it.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
+			if (temp == i_ptr)
+			{
+				Collision::AllCollidables.erase(Collision::AllCollidables.begin() + index);
+				break;
+			}
+			index++;
+		}
+		index = 0;
+		for (GameObjectOwner<Physics::TwoDPhysicsObj> it : Engine::AllGameObjects)
+		{
+			if (it == i_ptr)
+			{
+				AllGameObjects.erase(Engine::AllGameObjects.begin() + index);
+				break;
+			}
+			index++;
+		}
+	}
 	void ClearObjects()
 	{
 		CheckForNewGameObjects();
 		delete &NewGameObjects;
-		//for (GameObjectOwner<Physics::TwoDPhysicsObj>* p : AllGameObjects)
-		//{
-		//	if (p)
-		//		delete p;
-		//}
 		AllGameObjects.clear();
 		delete &AllGameObjects;
 	}

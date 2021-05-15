@@ -46,5 +46,15 @@ namespace Collision {
 		return Matrix::Vector4(tempOwner->posAndVec.getXVector(), tempOwner->posAndVec.getYVector(), 0, 0);
 	}
 
+	Collidable::operator bool()
+	{
+		return m_owner;
+	}
+
+	bool Collidable::operator==(const Collidable& i_other)
+	{
+		return m_owner == i_other.m_owner;
+	}
+
 }
 

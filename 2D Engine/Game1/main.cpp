@@ -12,6 +12,9 @@
 
 bool aDown = false;
 bool dDown = false;
+bool spaceDown = false;
+bool spacePressed = false;
+
 
 void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 {
@@ -32,18 +35,15 @@ void TestKeyCallback(unsigned int i_VKeyID, bool bWentDown)
 		dDown = true;
 	else
 		dDown = false;
-}
 
-Collision::Collidable GetCollidable(const GameObjectOwner<Physics::TwoDPhysicsObj>& i_ptr)
-{
-	for(Collision::Collidable& it : Collision::AllCollidables)
+	if (i_VKeyID == 32 && bWentDown)
 	{
-		GameObjectOwner<Physics::TwoDPhysicsObj> temp = it.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
-		if (temp == i_ptr)
-		{
-			return it;
-		}
-
+		spaceDown = true;
+	}
+	else
+	{
+		spaceDown = false;
+		spacePressed = false;
 	}
 }
 
@@ -65,23 +65,28 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 		GLib::SetKeyStateChangeCallback(TestKeyCallback);
 
 		std::vector<Point2D> forces1;
-		std::vector<Point2D> forces2;
+		std::vector<Point2D> rocketForces = { Point2D(10,0) };
 
 		Engine::JobSystem::JobStatus JobStatus;
 
 
-		GameObjectOwner<Physics::TwoDPhysicsObj> ptr1 = Loader::CreateGameObject("test.json");
+		GameObjectOwner<Physics::TwoDPhysicsObj> ptr1 = Loader::CreateGameObject("player.json");
 		
+		for (int i = 0; i < 3; i++)
+		{
+			Engine::JobSystem::RunJob(
+				Engine::JobSystem::GetDefaultQueueName(),
+				[]()
+				{
+					Engine::AddNewGameObject(Loader::CreateGameObject("enemy.json"));
+				},
+				&JobStatus
+					);
+			JobStatus.WaitForZeroJobsLeft();
 
-		Engine::JobSystem::RunJob(
-			Engine::JobSystem::GetDefaultQueueName(),
-			[]()
-			{
-				Engine::AddNewGameObject(Loader::CreateGameObject("test2.json"));
-			},
-			&JobStatus
-				);
-		JobStatus.WaitForZeroJobsLeft();
+			(*Engine::NewGameObjects.back()).posAndVec.setYPosition((rand() % 1000) - 500.0f);
+		}
+		
 
 		float frameTime;
 
@@ -98,28 +103,72 @@ int wWinMain(_In_ HINSTANCE i_hInstance, _In_opt_ HINSTANCE i_hPrevInstance, _In
 
 				if (aDown)
 				{
-					forces1.push_back(Point2D(0, -0.01f));
+					forces1.push_back(Point2D(0, -.2f));
 				}
 				else if(dDown)
 				{
-					forces1.push_back(Point2D(0.01f, 0));
+					forces1.push_back(Point2D(0, .2f));
 				}
 				else
 				{
 					forces1.clear();
 				}
 
-
-
-				Physics::Update((*ptr1), forces1, frameTime);
-
-				//checks that collsion is detected in someway
-				for (Collision::Collidable& it : Collision::AllCollidables)
+				if (spaceDown  && !spacePressed)
 				{
-					Collision::Collidable temp = GetCollidable(ptr1);
-					if(!(temp.GetObserver() == it.GetObserver()))
-						Collision::IsCollidingSweep(temp, it, frameTime);
+					spacePressed = true;
+
+					Engine::JobSystem::RunJob(
+						Engine::JobSystem::GetDefaultQueueName(),
+						[]()
+						{
+							Engine::AddNewGameObject(Loader::CreateGameObject("rocket.json"));
+						},
+						&JobStatus
+							);
+					JobStatus.WaitForZeroJobsLeft();
+					(*Engine::NewGameObjects.back()).posAndVec.setYPosition((*ptr1).posAndVec.getYPosition()+100);
+
 				}
+
+				Physics::Update(*ptr1, forces1, frameTime);
+				for (GameObjectOwner<Physics::TwoDPhysicsObj>& it : Engine::AllGameObjects)
+				{
+					if (it->GetMass() == 1)
+					{
+						Physics::Update(*it, rocketForces, frameTime);
+						Collision::Collidable temp = Collision::GetCollidable(it);
+						if (temp)
+						{
+							for (Collision::Collidable& tit : Collision::AllCollidables)
+							{
+								if(!(temp == tit))
+								{
+									if (Collision::IsCollidingSweep(tit, temp, frameTime))
+									{
+										Engine::DeleteObject(it);
+										GameObjectOwner<Physics::TwoDPhysicsObj> otherTemp = tit.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
+										Engine::DeleteObject(otherTemp);
+										break;
+									}
+								}
+								
+							}
+
+						}
+						
+					}
+
+
+
+
+					if (it->posAndVec.getXPosition() > 800)
+					{
+						Engine::DeleteObject(it);
+					}
+					
+				}
+
 
 				//Rendering
 				GLib::BeginRendering(DirectX::Colors::Red);

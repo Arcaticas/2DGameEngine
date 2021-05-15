@@ -16,6 +16,7 @@ namespace Renderer
 		Point2D GetLocationFromParent();
 		inline GameObjectObserver<Physics::TwoDPhysicsObj> GetObserver();
 		inline GLib::Sprite* GetSprite();
+
 	private:
 		GameObjectObserver<Physics::TwoDPhysicsObj> m_owner;
 		GLib::Sprite* m_sprite;

@@ -61,6 +61,11 @@ public:
 		return m_ptr == i_other.m_ptr;
 	}
 
+	operator bool()
+	{
+		return (m_ptr != nullptr);
+	}
+
 private:
 	T* m_ptr;
 	Counters* m_count;

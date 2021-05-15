@@ -16,6 +16,9 @@ namespace Physics {
 		TwoDPhysicsObj(float i_xP, float i_yP, float i_mass, float i_dragCoef);
 		TwoDPhysicsObj(float i_xP, float i_yP, float i_xV, float i_yV, float i_mass, float i_dragCoef);
 
+		bool operator==(const TwoDPhysicsObj& i_other);
+		bool operator!=(const TwoDPhysicsObj& i_other);
+
 		float GetZRotation() { return m_zRotation; }
 		float GetXAcceleration() { return m_xAcceleration; }
 		float GetYAcceleration() { return m_yAcceleration; }
@@ -28,6 +31,7 @@ namespace Physics {
 		void SetMass(float i_mass) { m_mass = i_mass; }
 		void SetDragCoefficient(float i_dragCoef) { m_dragCoef = i_dragCoef; }
 		inline void SetDragCoefficient(float i_fluidDensity, float i_fluidDrag, float i_size);
+
 
 	private:
 		float m_zRotation;

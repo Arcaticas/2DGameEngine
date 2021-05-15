@@ -23,10 +23,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.json">
+    <None Include="player.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="test2.json">
+    <None Include="enemy.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="rocket.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

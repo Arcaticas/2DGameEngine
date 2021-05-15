@@ -6,6 +6,20 @@ namespace Collision
 {
     std::vector<Collidable>& AllCollidables = *(new std::vector<Collidable>());
 
+    Collidable GetCollidable(GameObjectOwner<Physics::TwoDPhysicsObj> i_ptr)
+    {
+        for (Collidable it : AllCollidables)
+        {
+            GameObjectOwner<Physics::TwoDPhysicsObj> temp = it.GetObserver().CreateOwner<Physics::TwoDPhysicsObj>();
+            if (temp == i_ptr)
+            {
+                return it;
+            }
+        }
+        //assert(false);
+        return Collidable(i_ptr, Point2D(0,0));
+    }
+
     bool IsCollidingStatic(Collidable& i_a, Collidable& i_b)
     {
         //Transform Matrixes
@@ -185,10 +199,7 @@ namespace Collision
         {
             return false;
         }
-        if (AsRelativeVelocityToB.GetX() == 0 && AsRelativeVelocityToB.GetY() == 0)
-        {
-            return IsCollidingStatic(i_a, i_b);
-        }
+
 
         //X coord check
         float dLeft = (BsLeftEdgeInB - AProjectionOntoB_X) - i_a.GetCenter().getXPosition();
